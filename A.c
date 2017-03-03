@@ -1,18 +1,21 @@
 #include<stdio.h>
+#include<conio.h>
 int main()
 {
     long long int a;
-    printf("Enter someting, please, enter please, please I beg of U :");
+    clrscr();
+    printf("Enter some number :");
     scanf("%lld",&a);
-    if(a>0)
+    if(a>=0)
     {
-	printf("");
-	main();
+	printf("\nERROR: Not allowed to print number!\n");
+       //	main();
     }
-    else
+    if(a<0)
     {
 	printf("%lld\n",a);
-	main();
+       //	main();
     }
+    getch();
     return 0;
 }
