@@ -1,13 +1,9 @@
 #include<stdio.h>
 #include<conio.h>
-void main()
-{
-    int a[1000],n,i,j,temp,buff[1000];
-    printf("Enter the number of elements to input [MAX 1000] :");
-    scanf("%d",&n);
-    if(n<=1000&&n>0)
-    {
-        for(i=0;i<n;i++)
+void compute(int n)
+   {
+       int i,j,a[1000],buff[1000],temp;
+    for(i=0;i<n;i++)
         {
             printf("Enter element %d:",i+1);
             scanf("%d",&a[i]);
@@ -68,6 +64,15 @@ void main()
             }
         }
         printf("\nThe number %d has repeated the max for %d times",a[j],temp);
+   }
+void main()
+{
+    int n;
+    printf("Enter the number of elements to input [MAX 1000] :");
+    scanf("%d",&n);
+    if(n<=1000&&n>0)
+    {
+        compute(n);
     }
     else
     {
