@@ -63,7 +63,30 @@ void mat_sum()
 	matsum=add_mat(mat1,mat2,row,col);
 	print_mat(matsum,row,col);
 }
+void mat_mult()
+{
+    int *mat1,*mat2,row,col,*matmult,i,j,k;
+	printf("Enter rows and cols rows <space> cols :");
+	scanf("%d %d",&row,&col);
+	mat1=make_mat(row,col);
+	mat2=make_mat(row,col);
+	accept_elements(mat1,row,col);
+	print_mat(mat1,row,col);
+	accept_elements(mat2,row,col);
+	print_mat(mat2,row,col);
+}
 void main()
 {
-	mat_sum();
+	int *mat,x,y,i,j;
+	printf("Enter the rows and cols :");
+	scanf("%d %d",&x,&y);
+	mat=make_mat(x,y);
+	accept_elements(mat,x,y);
+	while(1)
+    {
+        printf("Enter params :");
+        scanf("%d %d",&i,&j);
+        print_mat(mat,x,y);
+        printf("%d \n",mat[i]);
+    }
 }
