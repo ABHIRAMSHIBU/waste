@@ -1,6 +1,9 @@
+#define _GNU_SOURCE
 #include<stdio.h>
 #include<conio.h>
 #include<string.h>
+#include<stdlib.h>
+
 typedef struct custrec
 {
 	char accno[6];
@@ -14,12 +17,10 @@ void update();
 void disp(rec r);
 
 
-void main()
+int main()
 {
-	clrscr();
 	menu();
-	fcloseall();
-	getch();
+//	fcloseall();
 }
 void add(char s[4])
 {
@@ -85,7 +86,7 @@ void update()
 	}
 	fclose(p);
 	p=fopen("custrecord.dat","ab+");
-	lseek(p,pos,0);
+	fseek(p,pos,0);
 	fwrite(&r,sizeof(r),1,p);
 	fclose(p);
 }      }
