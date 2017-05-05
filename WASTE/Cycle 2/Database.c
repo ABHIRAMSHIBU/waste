@@ -12,10 +12,10 @@ void write(FILE *file)
     long long int acnoi,balancei,secret;
     file=fopen(DB_NAME,"w"); //Test.db is the database
     secretf=fopen(secF,"w");
-
-    printf("Enter account number <space> balance <space> status[1/0] :");
-    scanf("%d %lld %s",&acnoi,&balancei,status);
     secret=0;
+    printf("Enter Balance <space> status[1/0] :");
+    acnoi=secret;
+    scanf("%lld %s",&balancei,status);
     tempfile1=fopen(tempfile,"w+");
     fprintf(tempfile1,"%.4d",acnoi);
     rewind(tempfile1);
@@ -45,9 +45,10 @@ void append(FILE *file)
     secretf=fopen(secF,"r+");
     if(secretf!=NULL)
     {
-        printf("Enter account number <space> balance <space> status[1/0] :");
-        scanf("%d %lld %s",&acnoi,&balancei,status);
+        printf("Enter Balance <space> status[1/0] :");
         fscanf(secretf,"%lld",&secret);
+        acnoi=secret;
+        scanf("%lld %s",&balancei,status);
         tempfile1=fopen(tempfile,"w+");
         fprintf(tempfile1,"%.4d",acnoi);
         rewind(tempfile1);
@@ -173,7 +174,7 @@ void update(FILE *file)
 void main()
 {
     FILE *file;   //Main File
-    int c;
+    int c,check;
     printf("----------------------------------------Main Menu---------------------------------------------------\n1)  Append to existing database.\n2)  Create a new database file purging old database and append.\n3)  Update a record.\n4)  Dump all record.\n-----------------------------------------End Menu---------------------------------------------------\n");
     printf("Your choice :");
     scanf("%d",&c);
