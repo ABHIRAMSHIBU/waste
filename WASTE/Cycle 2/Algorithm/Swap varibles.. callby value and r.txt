@@ -1,0 +1,18 @@
+1) start          SWAP 2 Variables using call by value and call by referrence
+2) Get 2 values from user into a and b.
+3) Pass these values stored in a and b to a function swap_value
+4) Pass the address of a and b to a function swap_reference
+5) Stop
+
+1) Start           swap_value function
+2) Initialize a temp variable with 0.
+3) Get 2 values from function call to a and b.
+3) Store value of a to temp , b to a and then temp to a
+4) Print out values of a and b to user
+5) Stop 
+
+1) Start               swap_referrence function
+2) Initialize a temp variabl with 0
+3) Get 2 address values from function call and store it to 2 pointers a and b
+4) Store value of *a to temp, *b to *a and temp to *a
+5) Display value of *a and *b to user 
