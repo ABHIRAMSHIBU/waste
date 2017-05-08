@@ -1,0 +1,17 @@
+1)START
+2)Declare a pointer array with 20 elements.
+3)Declare a charector array.
+4)Allocate memory into the pointer array.
+5)Prompt user to enter how much number records and store it to n.
+6)Get all n number of names and store it to the pointer array's l values.
+7)Set value of a variable, i to 0
+8)Check if the ith element of the ponter has an L value greator than (i+1)th element if yes continue, if no go to step
+9)Interchage ith element of the pointer L value with the L value of i+1th element and the reverse
+10)increment i
+11)Repeat the above steps from 8 until i is n-2.
+12)Display the sorted elements
+13)Get a name from user in a charector array,eg name.
+14)Compare name with all elements in the pointer array with n elements. , if anyone matches , print that the element is there otherwise print a negetive info to user.
+15)Get a charector from user to a char variable eg c
+16)Check all the first byte of array pointers for c, if found display the l value of the entire pointer.
+17)STOP
