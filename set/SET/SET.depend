@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1501685737 source:/home/abhiram/C/waste/set/SET/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
