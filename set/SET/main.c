@@ -10,29 +10,38 @@ typedef struct
 void set_init(set *A)
 {
     A->size=0;
-    A->set[A->size]=malloc(sizeof(char)*1000);
-    A->set[A->size]='\0';
+    //A->set[A->size]=malloc(sizeof(char)*1000);
+    //A->set[A->size]='\0';
 }
 void set_insert(set *A,char item[])
 {
-    printf("Adding value into %d",(*A).size);
-    strcpy(&(*A).set[(*A).size],item);
-    (*A).size++;
     (*A).set[(*A).size]=malloc(sizeof(char)*1000);
+    //printf("Adding value into %d",(*A).size);
+    strcpy(&A->set[A->size],item);
+    (*A).size++;
 }
-void set_disp(set A)
+void set_disp(set *A)
 {
     int i;
-    printf("/n{");
-    /*for(i=0;i<A.size;i++)
+    printf("\n{");
+    for(i=0;i<(A->size);i++)
     {
-        printf("%s");
-    }*/
+        //printf("%d",i);
+        printf(" %s",&A->set[i]);
+        if(i!=A->size-1)
+        {
+            printf(",");
+        }
+    }
+    printf("}\n");
 }
 int main()
 {
     set A;
     set_init(&A);
-    set_insert(&A,"Hello bla");
-    printf("Size %d, set %s",A.size,&A.set[0]);
+    set_insert(&A,"Hello ");
+    set_insert(&A,"bla");
+    set_insert(&A,"NOW?");
+    //("Size %d, set %s",A.size,&A.set[0]);
+    set_disp(&A);
 }
