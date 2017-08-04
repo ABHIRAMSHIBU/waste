@@ -5,7 +5,7 @@
 typedef struct
 {
     int size;
-    char *set[1037540];
+    char *set[103750];
 }set;
 void set_init(set *A)
 {
@@ -38,6 +38,7 @@ void set_disp(set *A)
 int main()
 {
     set A;
+    set B;
     char buff[1000];
     set_init(&A);
     while(1)
@@ -51,4 +52,16 @@ int main()
 
     //("Size %d, set %s",A.size,&A.set[0]);
     set_disp(&A);
+    set_init(&B);
+    while(1)
+    {
+        printf("Enter a element in set A [/0=end]:");
+        scanf("%s",buff);
+        if(!strcmp(buff,"/0"))
+            break;
+        set_insert(&B, buff);
+    }
+
+    //("Size %d, set %s",A.size,&A.set[0]);
+    set_disp(&B);
 }
