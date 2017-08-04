@@ -38,10 +38,17 @@ void set_disp(set *A)
 int main()
 {
     set A;
+    char buff[1000];
     set_init(&A);
-    set_insert(&A,"Hello ");
-    set_insert(&A,"bla");
-    set_insert(&A,"NOW?");
+    while(1)
+    {
+        printf("Enter a element in set A [/0=end]:");
+        scanf("%s",buff);
+        if(!strcmp(buff,"/0"))
+            break;
+        set_insert(&A, buff);
+    }
+
     //("Size %d, set %s",A.size,&A.set[0]);
     set_disp(&A);
 }
