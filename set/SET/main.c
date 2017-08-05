@@ -5,7 +5,7 @@
 typedef struct
 {
     int size;
-    char *set[103750];
+    char *set[103710];
 }set;
 void set_init(set *A)
 {
@@ -36,6 +36,27 @@ void set_insert(set *A,char item[])
 
 }*/
 
+void set_deleteitem(set *A,int index)
+{
+    set temp;
+    int i=0;
+    printf("caled\n");
+    for(i=0;i<A->size;i++)
+    {
+        if(i==index)
+        {
+            continue;
+            printf("skipping",A->set[i]);
+        }
+        else
+        {
+            set_insert(&temp,A->set[i]);
+        }
+    }
+
+    A=&temp;
+}
+
 void set_unique(set *A)
 {
     int i=0;
@@ -53,12 +74,14 @@ void set_unique(set *A)
         if(!strcmp(val,&A->set[j]))
         {
             set_insert(&temp,val);
+
+            set_deleteitem(&A,i);
         }
 
         }
     }
 
-    set_disp(a_temp);
+    set_disp(&temp);
 }
 
 void set_disp(set *A)
