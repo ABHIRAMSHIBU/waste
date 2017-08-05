@@ -35,6 +35,44 @@ void set_disp(set *A)
     }
     printf("}\n");
 }
+void menu(set *A,set *B)
+{
+    char c=NULL;
+    printf("\nWelcome to basic set operations program");
+    printf("\n================Main Menu==============");
+    printf("\nOption         Description             ");
+    printf("\n---------------------------------------");
+    printf("\n1               A Union B              ");
+    printf("\n2               A Inter B              ");
+    printf("\n3               A   -   B              ");
+    printf("\n4                  EXIT                ");
+    printf("\n---------------------------------------");
+    printf("\n\nEnter an option :");
+    scanf(" %c",&c);
+    printf("%c",c);
+    if(c=='1')
+    {
+        printf("\nOption 1 selected.");
+    }
+    else if(c=='2')
+    {
+        printf("\nOption 2 selected.");
+    }
+    else if(c=='3')
+    {
+        printf("\nOption 3 selected.");
+    }
+    else if(c=='4')
+    {
+        printf("\nOption 4 selected. Exiting..");
+        return;
+    }
+    else
+    {
+        printf("\nSorry invalid option. Please try again");
+        menu(A,B);
+    }
+}
 int main()
 {
     set A;
@@ -49,7 +87,6 @@ int main()
             break;
         set_insert(&A, buff);
     }
-
     //("Size %d, set %s",A.size,&A.set[0]);
     set_disp(&A);
     set_init(&B);
@@ -61,7 +98,7 @@ int main()
             break;
         set_insert(&B, buff);
     }
-
     //("Size %d, set %s",A.size,&A.set[0]);
     set_disp(&B);
+    menu(&A,&B);
 }
