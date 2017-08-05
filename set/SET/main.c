@@ -20,6 +20,47 @@ void set_insert(set *A,char item[])
     strcpy(&A->set[A->size],item);
     (*A).size++;
 }
+
+/*set *union(set *A,set *B
+{
+    set un;
+    int i=0,j=0;
+    set temp;
+    for(i=0;i<A->size;i++)
+    {
+        for(j=0;j<B->size;i++)
+        {
+            if
+        }
+    }
+
+}*/
+
+void set_unique(set *A)
+{
+    int i=0;
+    set temp;
+    set *a_temp;
+    a_temp=A;
+    int j=0;
+    char *val;
+    val=malloc(sizeof(char)*1000);
+    for(i=0;i<A->size;i++)
+    {
+        strcpy(val,&A->set[i]);
+        for(j=i+1;j<A->size;j++)
+        {
+        if(!strcmp(val,&A->set[j]))
+        {
+            set_insert(&temp,val);
+        }
+
+        }
+    }
+
+    set_disp(a_temp);
+}
+
 void set_disp(set *A)
 {
     int i;
@@ -88,7 +129,8 @@ int main()
         set_insert(&A, buff);
     }
     //("Size %d, set %s",A.size,&A.set[0]);
-    set_disp(&A);
+    //set_disp(&A);
+    set_unique(&A);
     set_init(&B);
     while(1)
     {
