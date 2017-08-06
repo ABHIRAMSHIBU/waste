@@ -47,13 +47,12 @@ void set_insert(set *A,char item[])
 
 set *Union(set *A,set *B)
 {
-    set un;
     int i=0,j=0;
     set *temp;
     temp=A;
     for(i=0;i<B->size;i++)
     {
-        if(checkpresent(temp,B->set[i])==0)
+        if(checkpresent(temp,&B->set[i])==0)
         {
             set_insert(temp,&B->set[i]);
         }
@@ -62,6 +61,22 @@ set *Union(set *A,set *B)
     return(temp);
 }
 
+set *Intersection(set *A,set *B)
+{
+    set Int;
+    set temp;
+    temp=*A;
+    int i=0;
+    for(i=0;i<A->size;i++)
+    {
+        if(checkpresent(B,&A->set[i])==1)
+        {
+            set_insert(&Int,&A->set[i]);
+        }
+    }
+
+    return(&Int);
+}
 
 void set_disp(set *A)
 {
@@ -94,13 +109,16 @@ void menu(set *A,set *B)
     scanf(" %c",&c);
     printf("%c",c);
     if(c=='1')
-    {
+    {   printf("\nOption 2 selected.\n");
         printf("\n AUB is \n");
         set_disp(Union(A,B));
+        menu(A,B);
     }
     else if(c=='2')
     {
-        printf("\nOption 2 selected.");
+        printf("\nOption 2 selected.\n");
+        printf("\nA intersection B is \n");
+        set_disp(Intersection(A,B));
     }
     else if(c=='3')
     {
