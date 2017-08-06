@@ -13,8 +13,22 @@ void set_init(set *A)
     //A->set[A->size]=malloc(sizeof(char)*1000);
     //A->set[A->size]='\0';
 }
+
+
 void set_insert(set *A,char item[])
 {
+    int i;
+    for(i=0;i<A->size;i++)
+    {
+        if(!strcmp(A->set[i],item))
+        {
+            printf("%s%s",item," present in A\n");
+        }
+        else
+        {
+            printf("%s%s",item," not present in A\n");
+        }
+    }
     (*A).set[(*A).size]=malloc(sizeof(char)*1000);
     //printf("Adding value into %d",(*A).size);
     strcpy(&A->set[A->size],item);
@@ -36,7 +50,7 @@ void set_insert(set *A,char item[])
 
 }*/
 
-void set_deleteitem(set *A,int index)
+/*void set_deleteitem(set *A,int index)
 {
     set temp;
     int i=0;
@@ -55,9 +69,9 @@ void set_deleteitem(set *A,int index)
     }
 
     A=&temp;
-}
+}*/
 
-void set_unique(set *A)
+/*void set_unique(set *A)
 {
     int i=0;
     set temp;
@@ -82,7 +96,9 @@ void set_unique(set *A)
     }
 
     set_disp(&temp);
-}
+}*/
+
+
 
 void set_disp(set *A)
 {
@@ -153,7 +169,6 @@ int main()
     }
     //("Size %d, set %s",A.size,&A.set[0]);
     //set_disp(&A);
-    set_unique(&A);
     set_init(&B);
     while(1)
     {
