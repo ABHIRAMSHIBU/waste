@@ -50,6 +50,8 @@ set *Union(set *A,set *B)
     int i=0,j=0;
     set *temp;
     temp=A;
+    set val=*temp;
+    temp=&val;
     for(i=0;i<B->size;i++)
     {
         if(checkpresent(temp,&B->set[i])==0)
@@ -61,11 +63,10 @@ set *Union(set *A,set *B)
     return(temp);
 }
 
-set *Intersection(set *A,set *B)
+void Intersection(set *A,set *B)
 {
     set Int;
-    set temp;
-    temp=*A;
+    set_init(&Int);
     int i=0;
     for(i=0;i<A->size;i++)
     {
@@ -75,13 +76,13 @@ set *Intersection(set *A,set *B)
         }
     }
 
-    return(&Int);
+    set_disp(&Int);
 }
 
 void set_disp(set *A)
 {
     int i;
-    printf("\n{");
+    printf("{");
     for(i=0;i<(A->size);i++)
     {
         //printf("%d",i);
@@ -96,41 +97,60 @@ void set_disp(set *A)
 void menu(set *A,set *B)
 {
     char c=NULL;
+    system("clear");
     printf("\nWelcome to basic set operations program");
+    printf("\nA=");
+    set_disp(A);
+    printf("\nB=");
+    set_disp(B);
     printf("\n================Main Menu==============");
     printf("\nOption         Description             ");
     printf("\n---------------------------------------");
     printf("\n1               A Union B              ");
     printf("\n2               A Inter B              ");
     printf("\n3               A   -   B              ");
-    printf("\n4                  EXIT                ");
+    printf("\n4              New A and B              ");
+    printf("\n5                  EXIT                ");
     printf("\n---------------------------------------");
     printf("\n\nEnter an option :");
     scanf(" %c",&c);
     printf("%c",c);
     if(c=='1')
-    {   printf("\nOption 2 selected.\n");
-        printf("\n AUB is \n");
+    {   printf("\nOption 1 selected.\n");
+        printf("\nR=");
         set_disp(Union(A,B));
+        printf("Press any key to continue....");
+        getchar();
+        getchar();
         menu(A,B);
     }
     else if(c=='2')
     {
         printf("\nOption 2 selected.\n");
-        printf("\nA intersection B is \n");
-        set_disp(Intersection(A,B));
+        printf("\nR=");
+        Intersection(A,B);
+        printf("Press any key to continue....");
+        getchar();
+        getchar();
+        menu(A,B);
     }
     else if(c=='3')
     {
         printf("\nOption 3 selected.");
     }
+    else if(c=='5')
+    {
+        printf("\nOption 5 selected. Exiting..");
+        return;
+    }
     else if(c=='4')
     {
-        printf("\nOption 4 selected. Exiting..");
-        return;
+
+        main();
     }
     else
     {
+
         printf("\nSorry invalid option. Please try again");
         menu(A,B);
     }
@@ -150,6 +170,7 @@ int main()
         set_insert(&A, buff);
     }
     //("Size %d, set %s",A.size,&A.set[0]);
+    printf("A=");
     set_disp(&A);
     set_init(&B);
     while(1)
@@ -161,6 +182,10 @@ int main()
         set_insert(&B, buff);
     }
     //("Size %d, set %s",A.size,&A.set[0]);
+    printf("B=");
     set_disp(&B);
+    printf("Press any key to continue....");
+    getchar();
+    getchar();
     menu(&A,&B);
 }
