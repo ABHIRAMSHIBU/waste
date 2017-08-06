@@ -14,90 +14,53 @@ void set_init(set *A)
     //A->set[A->size]='\0';
 }
 
-
-void set_insert(set *A,char item[])
+int checkpresent(set *A,char item[])
 {
-    int i;
+        int i;
+    int flag;
     for(i=0;i<A->size;i++)
     {
-        if(!strcmp(A->set[i],item))
+        if(!strcmp(&A->set[i],item))
         {
-            printf("%s%s",item," present in A\n");
+            flag=1;
+            break;
         }
         else
         {
-            printf("%s%s",item," not present in A\n");
+            flag=0;
         }
     }
-    (*A).set[(*A).size]=malloc(sizeof(char)*1000);
-    //printf("Adding value into %d",(*A).size);
-    strcpy(&A->set[A->size],item);
-    (*A).size++;
+
+    return(flag);
+}
+void set_insert(set *A,char item[])
+{
+    if(checkpresent(A,item) !=1)
+    {
+        (*A).set[(*A).size]=malloc(sizeof(char)*1000);
+        //printf("Adding value into %d",(*A).size);
+        strcpy(&A->set[A->size],item);
+        (*A).size++;
+    }
+
 }
 
-/*set *union(set *A,set *B
+set *Union(set *A,set *B)
 {
     set un;
     int i=0,j=0;
-    set temp;
-    for(i=0;i<A->size;i++)
+    set *temp;
+    temp=A;
+    for(i=0;i<B->size;i++)
     {
-        for(j=0;j<B->size;i++)
+        if(checkpresent(temp,B->set[i])==0)
         {
-            if
+            set_insert(temp,&B->set[i]);
         }
     }
 
-}*/
-
-/*void set_deleteitem(set *A,int index)
-{
-    set temp;
-    int i=0;
-    printf("caled\n");
-    for(i=0;i<A->size;i++)
-    {
-        if(i==index)
-        {
-            continue;
-            printf("skipping",A->set[i]);
-        }
-        else
-        {
-            set_insert(&temp,A->set[i]);
-        }
-    }
-
-    A=&temp;
-}*/
-
-/*void set_unique(set *A)
-{
-    int i=0;
-    set temp;
-    set *a_temp;
-    a_temp=A;
-    int j=0;
-    char *val;
-    val=malloc(sizeof(char)*1000);
-    for(i=0;i<A->size;i++)
-    {
-        strcpy(val,&A->set[i]);
-        for(j=i+1;j<A->size;j++)
-        {
-        if(!strcmp(val,&A->set[j]))
-        {
-            set_insert(&temp,val);
-
-            set_deleteitem(&A,i);
-        }
-
-        }
-    }
-
-    set_disp(&temp);
-}*/
-
+    return(temp);
+}
 
 
 void set_disp(set *A)
@@ -132,7 +95,8 @@ void menu(set *A,set *B)
     printf("%c",c);
     if(c=='1')
     {
-        printf("\nOption 1 selected.");
+        printf("\n AUB is \n");
+        set_disp(Union(A,B));
     }
     else if(c=='2')
     {
@@ -168,11 +132,11 @@ int main()
         set_insert(&A, buff);
     }
     //("Size %d, set %s",A.size,&A.set[0]);
-    //set_disp(&A);
+    set_disp(&A);
     set_init(&B);
     while(1)
     {
-        printf("Enter a element in set A [/0=end]:");
+        printf("Enter a element in set B [/0=end]:");
         scanf("%s",buff);
         if(!strcmp(buff,"/0"))
             break;
