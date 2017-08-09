@@ -63,9 +63,11 @@ set *Union(set *A,set *B)
     return(temp);
 }
 
-void Intersection(set *A,set *B)
+set *Intersection(set *A,set *B)
 {
     set Int;
+    set *val;
+    val=&Int;
     set_init(&Int);
     int i=0;
     for(i=0;i<A->size;i++)
@@ -76,8 +78,34 @@ void Intersection(set *A,set *B)
         }
     }
 
-    set_disp(&Int);
+    return(val);
 }
+
+set *Minus(set *A,set *B)
+{
+    set Int;
+    set *val;
+    val=&Int;
+    set_init(&Int);
+    int i=0;
+    for(i=0;i<A->size;i++)
+    {
+        if(checkpresent(B,&A->set[i])==0)
+        {
+            set_insert(&Int,&A->set[i]);
+        }
+    }
+
+    return(val);
+}
+
+set *dell(set *A,set *B)
+{
+    set AB=*Minus(A,B);
+    set BA=*Minus(B,A);
+    return(Union(&AB,&BA));
+}
+
 
 void set_disp(set *A)
 {
@@ -106,17 +134,20 @@ void menu(set *A,set *B)
     printf("\n================Main Menu==============");
     printf("\nOption         Description             ");
     printf("\n---------------------------------------");
-    printf("\n1               A Union B              ");
-    printf("\n2               A Inter B              ");
-    printf("\n3               A   -   B              ");
-    printf("\n4              New A and B              ");
-    printf("\n5                  EXIT                ");
+    printf("\n1               A \u222A B              ");
+    printf("\n2               A \u2229 B              ");
+    printf("\n3               A - B              ");
+    printf("\n4               B - A              ");
+    printf("\n5               A \u0394 B              ");
+    printf("\n6             New A and B              ");
+    printf("\n7               EXIT                ");
     printf("\n---------------------------------------");
     printf("\n\nEnter an option :");
     scanf(" %c",&c);
     printf("%c",c);
     if(c=='1')
     {   printf("\nOption 1 selected.\n");
+        printf("A \u222A B:\n");
         printf("\nR=");
         set_disp(Union(A,B));
         printf("Press any key to continue....");
@@ -127,8 +158,9 @@ void menu(set *A,set *B)
     else if(c=='2')
     {
         printf("\nOption 2 selected.\n");
+        printf("A \u2229 B:\n");
         printf("\nR=");
-        Intersection(A,B);
+        set_disp(Intersection(A,B));
         printf("Press any key to continue....");
         getchar();
         getchar();
@@ -136,18 +168,54 @@ void menu(set *A,set *B)
     }
     else if(c=='3')
     {
-        printf("\nOption 3 selected.");
-    }
-    else if(c=='5')
-    {
-        printf("\nOption 5 selected. Exiting..");
-        return;
+
+        printf("\nOption 3 selected.\n");
+        printf("A - B:\n");
+        printf("\nR=");
+        set_disp(Minus(A,B));
+        printf("Press any key to continue....");
+        getchar();
+        getchar();
+        menu(A,B);
+
     }
     else if(c=='4')
     {
 
+        printf("\nOption 4 selected.\n");
+        printf("B - A:\n");
+        printf("\nR=");
+        set_disp(Minus(B,A));
+        printf("Press any key to continue....");
+        getchar();
+        getchar();
+        menu(A,B);
+
+    }
+    else if(c=='5')
+    {
+
+        printf("\nOption 5 selected.\n");
+        printf("A \u0394 B :\n");
+        printf("\nR=");
+        set_disp(dell(A,B));
+        printf("Press any key to continue....");
+        getchar();
+        getchar();
+        menu(A,B);
+    }
+
+    else if(c=='6')
+    {
         main();
     }
+
+    else if(c=='7')
+    {
+        printf("\nOption 7 selected. Exiting..");
+        return;
+    }
+
     else
     {
 
@@ -157,6 +225,7 @@ void menu(set *A,set *B)
 }
 int main()
 {
+    system("clear");
     set A;
     set B;
     char buff[1000];
