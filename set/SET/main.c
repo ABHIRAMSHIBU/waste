@@ -2,21 +2,24 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+
+
 typedef struct
 {
     int size;
     char *set[103710];
 }set;
-void set_init(set *A)
+
+void set_init(set *A) //to intialise the size value to zero to avoid junk values
 {
     A->size=0;
     //A->set[A->size]=malloc(sizeof(char)*1000);
     //A->set[A->size]='\0';
 }
 
-int checkpresent(set *A,char item[])
+int checkpresent(set *A,char item[]) //code to check the presence of item in set A. It outputs 1 if present 0 otherwise.
 {
-        int i;
+    int i;
     int flag;
     for(i=0;i<A->size;i++)
     {
@@ -33,7 +36,7 @@ int checkpresent(set *A,char item[])
 
     return(flag);
 }
-void set_insert(set *A,char item[])
+void set_insert(set *A,char item[]) //inserting an elemnet item into set
 {
     if(checkpresent(A,item) !=1)
     {
@@ -45,7 +48,7 @@ void set_insert(set *A,char item[])
 
 }
 
-set *Union(set *A,set *B)
+set *Union(set *A,set *B) //to find the union of A and B
 {
     int i=0,j=0;
     set *temp;
@@ -63,7 +66,7 @@ set *Union(set *A,set *B)
     return(temp);
 }
 
-set *Intersection(set *A,set *B)
+set *Intersection(set *A,set *B) //Intersection of set A and B
 {
     set Int;
     set *val;
@@ -81,7 +84,7 @@ set *Intersection(set *A,set *B)
     return(val);
 }
 
-set *Minus(set *A,set *B)
+set *Minus(set *A,set *B)// to find A-B
 {
     set Int;
     set *val;
@@ -99,7 +102,7 @@ set *Minus(set *A,set *B)
     return(val);
 }
 
-set *dell(set *A,set *B)
+set *dell(set *A,set *B) //to find the symmetric differnce of A,B
 {
     set AB=*Minus(A,B);
     set BA=*Minus(B,A);
@@ -107,13 +110,18 @@ set *dell(set *A,set *B)
 }
 
 
-void set_disp(set *A)
+void set_disp(set *A)//to display the set
 {
     int i;
     printf("{");
     for(i=0;i<(A->size);i++)
     {
         //printf("%d",i);
+        if(A->size==0)
+        {
+            printf("or \u03D5");
+            break;
+        }
         printf(" %s",&A->set[i]);
         if(i!=A->size-1)
         {
@@ -121,8 +129,10 @@ void set_disp(set *A)
         }
     }
     printf("}\n");
+
+
 }
-void menu(set *A,set *B)
+void menu(set *A,set *B) //A menu choice
 {
     char c=NULL;
     system("clear");
@@ -150,7 +160,7 @@ void menu(set *A,set *B)
         printf("A \u222A B:\n");
         printf("\nR=");
         set_disp(Union(A,B));
-        printf("Press any key to continue....");
+        printf("Press Enter to continue....");
         getchar();
         getchar();
         menu(A,B);
@@ -161,7 +171,7 @@ void menu(set *A,set *B)
         printf("A \u2229 B:\n");
         printf("\nR=");
         set_disp(Intersection(A,B));
-        printf("Press any key to continue....");
+        printf("Press Enter to continue....");
         getchar();
         getchar();
         menu(A,B);
@@ -173,7 +183,7 @@ void menu(set *A,set *B)
         printf("A - B:\n");
         printf("\nR=");
         set_disp(Minus(A,B));
-        printf("Press any key to continue....");
+        printf("Press Enter to continue....");
         getchar();
         getchar();
         menu(A,B);
@@ -186,7 +196,7 @@ void menu(set *A,set *B)
         printf("B - A:\n");
         printf("\nR=");
         set_disp(Minus(B,A));
-        printf("Press any key to continue....");
+        printf("Press Enter to continue....");
         getchar();
         getchar();
         menu(A,B);
@@ -199,7 +209,7 @@ void menu(set *A,set *B)
         printf("A \u0394 B :\n");
         printf("\nR=");
         set_disp(dell(A,B));
-        printf("Press any key to continue....");
+        printf("Press Enter to continue....");
         getchar();
         getchar();
         menu(A,B);
@@ -219,7 +229,10 @@ void menu(set *A,set *B)
     else
     {
 
-        printf("\nSorry invalid option. Please try again");
+        printf("\nSorry invalid option. Please try again\n");
+        printf("Press Enter to continue....");
+        getchar();
+        getchar();
         menu(A,B);
     }
 }
