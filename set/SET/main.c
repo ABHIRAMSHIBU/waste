@@ -1,4 +1,4 @@
-//Program made by Abhiram Shibu and Abhijith N Raj
+//SET_COMPUTE  Copyright (C) 2017 Abhiram Shibu, Abhijith N Raj
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -15,14 +15,12 @@ typedef struct
     char *set[103710];
 }set;
 
-void set_init(set *A) //to intialise the size value to zero to avoid junk values
+void set_init(set *A) //Initialize to zero
 {
     A->size=0;
-    //A->set[A->size]=malloc(sizeof(char)*1000);
-    //A->set[A->size]='\0';
 }
 
-int set_check_present(set *A,char item[]) //code to check the presence of item in set A. It outputs 1 if present 0 otherwise.
+int set_check_present(set *A,char item[]) //Check if a vlaue is alredy present
 {
     int i;
     int flag;
@@ -41,19 +39,18 @@ int set_check_present(set *A,char item[]) //code to check the presence of item i
 
     return(flag);
 }
-void set_insert(set *A,char item[]) //inserting an elemnet item into set
+void set_insert(set *A,char item[]) //Insert element to set.
 {
     if(set_check_present(A,item) !=1)
     {
         (*A).set[(*A).size]=malloc(sizeof(char)*1000);
-        //printf("Adding value into %d",(*A).size);
         strcpy(&A->set[A->size],item);
         (*A).size++;
     }
 
 }
 
-set *set_union(set *A,set *B) //to find the union of A and B
+set *set_union(set *A,set *B) //A union B
 {
     int i=0,j=0;
     set *temp;
@@ -71,7 +68,7 @@ set *set_union(set *A,set *B) //to find the union of A and B
     return(temp);
 }
 
-set *set_intersection(set *A,set *B) //Intersection of set A and B
+set *set_intersection(set *A,set *B) //A intersection B
 {
     set Int;
     set *val;
@@ -89,7 +86,7 @@ set *set_intersection(set *A,set *B) //Intersection of set A and B
     return(val);
 }
 
-set *set_minus(set *A,set *B)// to find A-B
+set *set_minus(set *A,set *B) //A-B
 {
     set Int;
     set *val;
@@ -107,7 +104,7 @@ set *set_minus(set *A,set *B)// to find A-B
     return(val);
 }
 
-set *set_delta(set *A,set *B) //to find the symmetric differnce of A,B
+set *set_delta(set *A,set *B) //Symmetric differnce of A and B
 {
     set AB=*set_minus(A,B);
     set BA=*set_minus(B,A);
@@ -115,13 +112,12 @@ set *set_delta(set *A,set *B) //to find the symmetric differnce of A,B
 }
 
 
-void set_disp(set *A)//to display the set
+void set_disp(set *A) //Display out the set
 {
     int i;
     printf("{");
     for(i=0;i<(A->size);i++)
     {
-        //printf("%d",i);
         if(A->size==0)
         {
             printf("or \u03D5");
@@ -137,7 +133,7 @@ void set_disp(set *A)//to display the set
 
 
 }
-void menu(set *A,set *B) //A menu choice
+void menu(set *A,set *B) //MAIN MENU
 {
     char c=NULL;
     system("clear");
@@ -279,7 +275,6 @@ int main()
             break;
         set_insert(&A, buff);
     }
-    //("Size %d, set %s",A.size,&A.set[0]);
     printf("A=");
     printf(ANSI_COLOR_GREEN);
     set_disp(&A);
@@ -295,7 +290,6 @@ int main()
             break;
         set_insert(&B, buff);
     }
-    //("Size %d, set %s",A.size,&A.set[0]);
     printf("B=");
     printf(ANSI_COLOR_BLUE);
     set_disp(&B);
