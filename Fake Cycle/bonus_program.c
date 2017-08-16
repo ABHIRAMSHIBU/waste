@@ -1,3 +1,4 @@
+// products Copyright 2017 Abhiram Shibu, Abhijith N Raj
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -14,11 +15,11 @@ void product_check(int *set, int set_size ,int k ,int n)
 	{
         	product=1;
         	c=0;
-		for(int i=0; i<pow_set_size;i++)                   //Flush buffer
+		for(int i=0; i<pow_set_size;i++)            //Flush buffer
 			buff[i]=0;
-        	for(j = 0; j < set_size; j++)                       //Check by using each element.
+        	for(j = 0; j < set_size; j++)               //Check by using each element.
         	{
-            		if(counter & (1<<j))                            //Checking if counter or j is zero, that = nullset
+            		if(counter & (1<<j))                //Checking if counter or j is zero, that = nullset
             		{
                 		//printf("%d*",set[j]);
                 		product*=set[j];
@@ -31,30 +32,32 @@ void product_check(int *set, int set_size ,int k ,int n)
         	//printf("=%d\n",product);
         	if(c==n && product==k)
         	{
+			printf("         ");
 			for(int i=0;i<n;i++)
 			{
 				printf("%d ",buff[i]);
 				if(i!=n-1)
 				{
-					printf("* ");
+					printf("x ");
 				}
 			}
-			printf("= %d",product);
+			printf("= %d\n",product);
             		final_counter++;
-            		getchar();
         	}
 
     	}
-    printf("\n\nThe end of iterations\n");
-    printf("Answer is :%d\n",final_counter);
+    printf("\n\n");
+    printf("         Final answer is :%d\n",final_counter);
 }
 int main()
 {
 	int k,n,factors[1000];
-	printf("\nEnter k and n:");
+	char c;
+	int factor_size=0;
+	system("clear");
+	printf("\nEnter K N:");
 	scanf("%d %d",&k,&n);
 	getchar();
-	int factor_size=0;
 	for(int i=1;i<=k;i++)
 	{
         if(k%i==0)
@@ -64,7 +67,7 @@ int main()
         }
 	}
 	printf("Factors = ");
-	for(int i=0;i<factor_size;i++)
+	for(int i=0;i<factor_size;i++)                      //Printing out factors.
 	{
         	printf("%d",factors[i]);
 		if(i<factor_size-1)
@@ -74,5 +77,10 @@ int main()
 	}
 	printf("\n\n\n");
 	product_check(factors, factor_size,k,n);            //Calculating factors and products.      
+	printf("\nRestart the program ?[y/n/0/1]:");
+	scanf("%c",&c);
+	if(c=='1' || c=='y' || c=='Y')
+		main();
+	system("clear");
 	return 0;
 }
