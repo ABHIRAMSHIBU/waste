@@ -47,6 +47,8 @@ void matrix_input(Matrix *A){
             scanf("%d",&(A->a[i][j]));
         }
 }
+
+/* Exchange diagonals of a matrix */
 void matrix_digonalExchange(Matrix *A){
     int temp;
     if(A->rows==A->cols){
