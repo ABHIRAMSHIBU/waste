@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<malloc.h>
-
+/* Copyright (c) 2017 Author Abhiram Shibu */
+/* Create a programme that displays the longest Increasing or decreasing sequence Numbers stored in a 2D array */
 int array[25][100];
 int r=0,c=0;
 void input_array(){
