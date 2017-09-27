@@ -1,9 +1,11 @@
+/* C source  remove_repetition_linkedlist
+ * Author  Abhiram Shibu - https://github.com/ABHIRAMSHIBU
+ * Copyright (c) 2017 Team Destroyer */
 #include<stdio.h>
-#include<malloc.h>
 #include "linkedlist.h"
 
 /* Removes all repetion by altering provided SLL */
-void killRepetion(listPointer ** head)
+void removeRepetion(listPointer ** head)
 {
     listPointer * nodeMain, * nodeCurrent, * temp;
     nodeMain=* head;
@@ -24,12 +26,13 @@ void killRepetion(listPointer ** head)
         nodeCurrent=nodeMain;
     }
 }
+/* Demo of functionality of removeRepetion aka killRepetion */
 int main(){
     listPointer * head;
     bulkInsert(&head);
-    printf("Before killRepetion\n");
+    printf("Before removeRepetion\n");
     printAll(&head);
-    printf("After killRepetion\n");
-    killRepetion(&head);
+    printf("After removeRepetion\n");
+    removeRepetion(&head);
     printAll(&head);
 }
