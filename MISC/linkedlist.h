@@ -1,16 +1,29 @@
+/* Header file linkedlist
+ * Author  Abhiram Shibu - https://github.com/ABHIRAMSHIBU
+ * Copyright (c) 2017 Team Destroyer */
+#include<malloc.h>
+#define True 1
+#define False 0
+/* Main node */
 typedef struct listNode{
 	int data;
 	struct listNode *link;
 }listPointer;
 
-void insert(listPointer ** list, int data){
+/* Try to insert a node  */
+int insert(listPointer ** list, int data){
 	listPointer * temp;
 	temp=malloc(sizeof(listPointer));
+    if(temp==NULL){
+        return -1;
+    }
 	temp->link=NULL;
 	(*list)=temp;
 	(*list)->data=data;
+    return 0;
 }
 
+/* Dumps everyting from given node */
 void printAll(listPointer ** head){
 	listPointer * temp;
 	temp=*head;
@@ -30,13 +43,16 @@ void printAll(listPointer ** head){
 
 }
 
-void bulkInsert(listPointer ** list){
+/* Inserts as a list with so many nodes */
+int bulkInsert(listPointer ** list){
 	listPointer * temp;
 	listPointer * head;
 	int n;
 	printf("Enter the number of elements:");
 	scanf("%d",&n);
 	head=malloc(sizeof(listPointer));
+    if(head==NULL)
+        return -1;
 	temp=head;
 	int key;
 	for(int i=0;i<n;i++)
@@ -47,13 +63,17 @@ void bulkInsert(listPointer ** list){
 		if(i<n-1)
 		{
 		temp->link=malloc(sizeof(listPointer));
+        if(temp->link==NULL)
+            return -1;
 		temp=temp->link;
 		}
 		printf("Success!\n");
 	}
 	*list=head;
+    return 0;
 }
 
+/* Delete repetition(delete repeating nodes) in a given list */
 void killRepetion(listPointer ** head)
 {
     listPointer * nodeMain, * nodeCurrent, * temp;
