@@ -1,5 +1,7 @@
+/* C source rotate_linkedlist
+ * Author  Abhiram Shibu - https://github.com/ABHIRAMSHIBU
+ * Copyright (c) 2017 Team Destroyer(TD) */
 #include<stdio.h>
-#include<malloc.h>
 #include "linkedlist.h"
 int rotate(listPointer ** head,int n){
     listPointer * nodeCurrent= * head, * nodeTemp, * nodeTemp2;
@@ -23,6 +25,8 @@ int rotate(listPointer ** head,int n){
     * head = nodeTemp2;
     return(n);
 }
+
+/* Demo using rotate , handle error codes */
 int main(){
     int n;
     listPointer * head;
