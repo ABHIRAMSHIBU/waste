@@ -6,7 +6,7 @@ void PUSH(int *s,int *top,int key){
 
 }
 	
-void display_stack(int *s,int top){
+void displayStack(int *s,int top){
 	for(int i=top;i>=0;i--){
 		printf("%d\n",s[i]);
 	}
