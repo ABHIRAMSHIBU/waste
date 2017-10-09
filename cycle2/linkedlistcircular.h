@@ -1,4 +1,4 @@
-/* Header file linkedlist
+/* Header file linkedlistcircular
  * Author  Abhiram Shibu - https://github.com/ABHIRAMSHIBU
  * Copyright (c) 2017 Team Destroyer */
 #include <malloc.h>
@@ -11,15 +11,15 @@ typedef struct listNode{
 }listPointer;
 
 /* Try to insert a node  */
-int insert(listPointer ** list, int data){
+int insert_caution(listPointer ** list, int data){
 	listPointer * temp;
 	temp=malloc(sizeof(listPointer));
     if(temp==NULL){
         return -1;
     }
-	temp->link=NULL;
-	(*list)=temp;
-	(*list)->data=data;
+    temp->link=NULL;
+    (*list)=temp;
+    (*list)->data=data;
     return 0;
 }
 
@@ -29,7 +29,7 @@ void printAll(listPointer ** head){
     temp=*head;
     while(1)
     {
-        if(temp->link==NULL)
+        if(temp->link==(*head))
         {
             printf("Data :%d\n",temp->data);
             break;
@@ -46,7 +46,7 @@ void printAllChar(listPointer ** head){
     temp=*head;
     while(1)
     {
-        if(temp->link==NULL)
+        if(temp->link==(*head))
         {
             printf("Data :%c\n",temp->data);
             break;
@@ -61,13 +61,15 @@ void printAllChar(listPointer ** head){
 int insertEnd(listPointer ** head,int data){
     listPointer * temp = *head;
     if(*head==NULL){
-        insert(head,data);
+        insert_caution(head,data);
+        (*head)->link=(*head);
         return;
     }
-    while(temp->link!=NULL){
+    while(temp->link!=(*head)){
         temp=temp->link;
     }
-    insert(&(temp->link),data);
+    insert_caution(&(temp->link),data);
+    temp->link->link=(*head);
 }
 
 int deleteEnd(listPointer ** head){
@@ -77,7 +79,7 @@ int deleteEnd(listPointer ** head){
     int data;
     listPointer * temp = * head;
     listPointer * prev = NULL;
-    while(temp->link!=NULL){
+    while(temp->link!=*head){
         prev=temp;
         temp=temp->link;
     }
@@ -90,20 +92,24 @@ int deleteEnd(listPointer ** head){
     else{
         data=temp->data;
         free(temp);
-        prev->link=NULL;
+        prev->link=(*head);
         return data;
     }
 }
 void insertFront(listPointer ** head,int data){
     if(*head==NULL){
-        insert(head,data);
+        insert_caution(head,data);
+        (*head)->link=(*head);
         return;
     }
-    listPointer * temp;
+    listPointer * temp,* temp2;
     temp=malloc(sizeof(listPointer));
+    temp2=*head;
+    while(temp2->link!=(*head)){temp2=temp2->link;}
     temp->link=*head;
     temp->data=data;
     *head=temp;
+    temp2->link=(*head);
 }
 int deleteFront(listPointer ** head){
     int data;

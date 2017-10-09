@@ -145,6 +145,32 @@ Matrix * matrix_det(Matrix * A){
         }
     }
 }
+ int det(Matrix * A){
+    int x=A->rows;
+     if(x==1)
+        return A->a[0][0];
+    int detsum=0;
+    Matrix * temp=matrix_create_noInp(25,25);         //Create a matrix
+    for(int k=0; k<x;k++) {                           //Major fist row traverse
+        int p=0, q=0;
+        for(int i=0; i<x;i++) {                       //traverse row
+                for(int j=0; j<x;j++) {               //traverse column
+                    if(j==k || i==0) {
+                        continue;
+                    }
+                    else {
+                        if(q==x-1){
+                            p++;q=0;	
+                        }
+                        temp->a[p][q++]=A->a[i][j];   //Finding cofactor
+                    }
+                }
+        }
+        temp->rows=x-1;
+        detsum+=(k%2==0?1:-1)*A->a[0][k]*det(temp);
+    }
+    return detsum;
+}
 int main(){
     Matrix *A=matrix_create();
     matrix_flush(A);
@@ -155,6 +181,6 @@ int main(){
     matrix_digonalExchange(A);
     matrix_print(A);
     printf("\nMatrix Determinant\n");
-    A=matrix_det(A);
-    matrix_print(A);
+    int a=det(A);
+    printf("Answer is:%d\n",a);
 }

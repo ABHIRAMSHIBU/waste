@@ -2,7 +2,7 @@
 #include<malloc.h>
 #include "stack.h"
 int checkOperant(char a){
-    printf("Char is :%c\n",a);
+//     printf("Char is :%c\n",a);
     if(a!='*' && a!='/' && a!='-' && a!='+' && a!=')' && a!='('){
         return 1;
     }
@@ -23,19 +23,19 @@ int main(){
     printf("Entered expression :%s\n",a);
     while(a[i]!='\0'){
         if(checkOperant(a[i])){
-            printf("Operant found:%c\n",a[i]);
-            insertEnd(&list,a[i]);
-            printAllChar(&list);
-            printf("\n");
+//             printf("Operant found:%c\n",a[i]);
+               insertEnd(&list,a[i]);
+//             printAllChar(&list);
+//             printf("\n");
         }
         else if(a[i]=='('){
-            printf("( found %c\n",a[i]);
+//             printf("( found %c\n",a[i]);
             push(&stack,a[i]);
-            printf("Pushed!,%d",i);
+//             printf("Pushed!,%d",i);
         }
         else if(a[i]==')'){
-            printf(") %c\n",a[i]);
-            printf("\nTrying pop!.%d\n",i);
+//             printf(") %c\n",a[i]);
+//             printf("\nTrying pop!.%d\n",i);
 //             temp=pop(&stack);
 //             insertEnd(&list,temp);
             temp=')';
@@ -48,7 +48,7 @@ int main(){
             }
         }
         else if(!checkOperant(a[i])){
-            printf("Operator found:%c\n",a[i]);
+//             printf("Operator found:%c\n",a[i]);
             start:
             temp=pop(&stack);
             switch(temp){
@@ -57,11 +57,11 @@ int main(){
                 case '*' :if(a[i]=='/' ) {push(&stack,temp);push(&stack,a[i]);} else{insertEnd(&list,temp);goto start;}break;
                 case '+' :if(a[i]=='/' || a[i]=='*' ) {push(&stack,temp);push(&stack,a[i]);} else{insertEnd(&list,temp);goto start;}break;
                 case '-' :if(a[i]=='/' || a[i]=='*'|| a[i]=='+' ) {push(&stack,temp);push(&stack,a[i]);} else{insertEnd(&list,temp);goto start;}break;
-                case -1 :push(&stack,a[i]);printf("RAN!");
+                case -1 :push(&stack,a[i]);
             }
         }
         if(a[i+1]=='\0'){
-            printf("Empty stack sequence\n");
+//             printf("Empty stack sequence\n");
             temp=pop(&stack);
                 while(temp!=-1){
                 insertEnd(&list,temp);

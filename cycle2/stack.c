@@ -62,8 +62,8 @@ void menu(int *s,int *top,listPointer **head){
 
 int main()
 {
-    listPointer * head=NULL;                                                                        //Linked list stack
-    int nl,c;                                                                                                    //nl elements to push to Linked list stack
+    listPointer * head=NULL;                                                                            //Linked list stack
+    int nl,c;                                                                                                   //nl elements to push to Linked list stack
     int s[100],top=-1,na;                                                                                //Array stack, na elements to push to Array stack
     printf("Enter the no of elements to push into stack using linked list:");
     scanf("%d",&nl);                                                                                      //Input elements to push to linked list
