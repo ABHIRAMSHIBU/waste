@@ -1,0 +1,1 @@
+//Create multiple stacks using one array with common Push and Pop Functions. Ask user for Input as to how many stacks the User wants to create on the array. The size of the stacks should also be taken as input from the user.
