@@ -23,9 +23,12 @@ void towerOfHanoi(int * step,int n, char from, char to, char sub)
 
 int main()
 {
-    printf("%sProgram Written by %sAbhiram Shibu\n \t\tTOWER!%s\n",GRN,RED,RESET);
-	int n = 3; // Number of disks
+    printf("%sProgram Written by %sAbhiram Shibu\n \t\tTOWER!%s\n",BLU,RED,RESET);
+	int n;
 	int step=1;
-	towerOfHanoi(&step,n, 'A', 'B', 'C'); // A, B and C are names of rods
+    printf("%sEnter number of disks:%s",RED,GRN);
+    printf("%s",RESET);
+    scanf("%d",&n);
+	towerOfHanoi(&step,n, 'A', 'B', 'C');
 	return 0;
 }
