@@ -8,11 +8,11 @@
 /* Main node */
 typedef struct listNode{
 	int data;
-	struct listNode *left, *right;
+	struct listNode * left, * right, * prev;
 }listPointer;
 
 /* Try to insert a node  */
-int insert(listPointer ** tree, int data){
+int insert(listPointer ** tree, listPointer ** prev,int data){
 	listPointer * temp;
 	temp=malloc(sizeof(listPointer));
     if(temp==NULL){
@@ -20,82 +20,55 @@ int insert(listPointer ** tree, int data){
     }
 	temp->left=NULL;
 	temp->right=NULL;
+    if(prev==NULL)
+        temp->prev=NULL;
+    else
+        temp->prev=* prev;
 	(*tree)=temp;
 	(*tree)->data=data;
     return 0;
 }
-
+/* IN oder traversal depricated
 int inorder(listPointer ** tree){
-/* Dumps everyting from given node */
-/* Depricated hence it dont work with trees
-void printAll(listPointer ** head){
-	listPointer * temp;
-	temp=*head;
-	while(1)
-	{
-		if(temp->link==NULL)
-		{
-			printf("Data :%d\n",temp->data);
-			break;
-		}
-		else
-		{
-			printf("Data :%d\n",temp->data);
-			temp=temp->link;
-		}
-	}
+    listPointer nodeCurrent=* tree
+    int leftflag=1;
+    int rightflag=0;
+    int roothitflag=0;
+    listPointer nodePrevPrint=NULL;
+    while(1){
+        if(leftflag=1){
+            if (nodeCurrent->left==NULL){
+                roothitflag=1;
+            }
+            else{
+                
+            }
+        }
+    }
+}*/
 
-}
-*/
-/* Inserts as a list with so many nodes */
-/* Depricated since it dont work with threes
-int bulkInsert(listPointer ** list){
-	listPointer * temp;
-	listPointer * head;
-	int n;
-	printf("Enter the number of elements:");
-	scanf("%d",&n);
-	head=malloc(sizeof(listPointer));
-    if(head==NULL)
-        return -1;
-	temp=head;
-	int key;
-	for(int i=0;i<n;i++)
-	{
-		printf("Enter key %d :",i+1);
-		scanf("%d",&key);
-		temp->data=key;
-		if(i<n-1)
-		{
-		temp->link=malloc(sizeof(listPointer));
-        if(temp->link==NULL)
-            return -1;
-		temp=temp->link;
-		}
-		printf("Success!\n");
-	}
-	*list=head;
+/* Inorder traversal */
+int inorder(listPointer ** tree){
+    /* Recursive function traverse */
+    void traverse(listPointer ** node){
+        if(*node==NULL)                               //Node null exception, when parent has no children
+            return;
+        /* Code segment not needed as its handled as a sideeffect */
+        /*if(((*node)->left)==NULL && ((*node)->right)==NULL){
+            printf("\n%d\n",(*node)->data);
+            return;
+        }*/
+        if(((*node)->left)!=NULL){               //Node  left traverse if exists
+            traverse(&((*node)->left));
+            printf("\n%d\n",(*node)->data);  //Print to screen 
+            traverse(&((*node)->right));
+        }
+        else {                                               //Left node dont exist, traverse right
+            printf("\n%d\n",(*node)->data);
+            traverse((&(*node)->right));
+        }
+        return;                                            //Return after all siblings are dead(i mean printed)
+    }
+    traverse(tree);   //First call of traverse
     return 0;
 }
-*/
-/* Delete repetition(delete repeating nodes) in a given list */
-/* Depricated hence it dont work with trees
-void killRepetion(listPointer ** head)
-{
-    listPointer * nodeMain, * nodeCurrent, * temp;
-    nodeMain=* head;
-    nodeCurrent= nodeMain;
-    while(nodeMain!=NULL){
-        while(nodeCurrent->link!=NULL){
-            if(nodeCurrent->link->data==nodeMain->data){
-                temp=nodeCurrent->link;
-                nodeCurrent->link=nodeCurrent->link->link;
-                free(temp);
-            }
-            nodeCurrent=nodeCurrent->link;
-        }
-        nodeMain=nodeMain->link;
-        nodeCurrent=nodeMain;
-    }
-}
-*/
