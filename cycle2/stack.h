@@ -8,5 +8,5 @@ int pop(listPointer ** head){
     {
         return -1;
     }
-    return deleteFont(head);
+    return deleteFront(head);
 }

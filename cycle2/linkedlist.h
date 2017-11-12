@@ -62,7 +62,7 @@ int insertEnd(listPointer ** head,int data){
     listPointer * temp = *head;
     if(*head==NULL){
         insert(head,data);
-        return;
+        return 0;
     }
     while(temp->link!=NULL){
         temp=temp->link;
