@@ -53,10 +53,10 @@ int main(){
             temp=pop(&stack);
             switch(temp){
                 case '(' : push(&stack,temp);push(&stack,a[i]); break;
-                case '/' :if(0) { push(&stack,temp);push(&stack,a[i]);} else{insertEnd(&list,temp);goto start;}break;
-                case '*' :if(a[i]=='/' ) {push(&stack,temp);push(&stack,a[i]);} else{insertEnd(&list,temp);goto start;}break;
-                case '+' :if(a[i]=='/' || a[i]=='*' ) {push(&stack,temp);push(&stack,a[i]);} else{insertEnd(&list,temp);goto start;}break;
-                case '-' :if(a[i]=='/' || a[i]=='*'|| a[i]=='+' ) {push(&stack,temp);push(&stack,a[i]);} else{insertEnd(&list,temp);goto start;}break;
+                case '/' :if(a[i]=='+'|| a[i]=='-') { push(&stack,temp);push(&stack,a[i]);} else{insertEnd(&list,temp);goto start;}break;
+                case '*' : if(a[i]=='+'|| a[i]=='-' ) {push(&stack,temp);push(&stack,a[i]);} else{insertEnd(&list,temp);goto start;}break;
+                case '+' :if(0) {push(&stack,temp);push(&stack,a[i]);} else{insertEnd(&list,temp);goto start;}break;
+                case '-' :if(0) {push(&stack,temp);push(&stack,a[i]);} else{insertEnd(&list,temp);goto start;}break;
                 case -1 :push(&stack,a[i]);
             }
         }
