@@ -4,6 +4,7 @@
 #include <malloc.h>
 #define True 1
 #define False 0
+#include "color.h"
 /* Main node */
 typedef struct listNode{
 	int data;
@@ -31,12 +32,12 @@ void printAll(listPointer ** head){
     {
         if(temp->link==NULL)
         {
-            printf("Data :%d\n",temp->data);
+            printf("%sData :%s%d\n%s",RED,GRN,temp->data,RESET);
             break;
         }
         else
             {
-                printf("Data :%d\n",temp->data);
+                printf("%sData :%s%d\n%s",RED,GRN,temp->data,RESET);
                 temp=temp->link;
             }
     }
@@ -48,12 +49,12 @@ void printAllChar(listPointer ** head){
     {
         if(temp->link==NULL)
         {
-            printf("Data :%c\n",temp->data);
+            printf("%sData :%s%c\n%s",RED,GRN,temp->data,RESET);
             break;
         }
         else
         {
-            printf("Data :%c\n",temp->data);
+            printf("%sData :%s%c\n%s",RED,GRN,temp->data,RESET);
             temp=temp->link;
         }
     }
