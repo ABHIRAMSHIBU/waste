@@ -4,6 +4,73 @@
 #include<stdio.h>
 #include<malloc.h>
 #include "stack.h"
+#include<string.h>
+#include<ctype.h>
+#include<stdlib.h>
+typedef struct  node//node definition
+{
+	char op;
+	struct node *next;
+	struct node *prev;
+	
+	
+}node;
+char stack[20],stack2[20][20];
+node *head,*tail;
+/* Global stack Pointer */
+int top=-1,top2=-1;
+void push2(char op[20]){//store strings to stack
+	top2++;
+	if(top2==20)
+		{
+			printf("\noverflow");
+			top2--;}
+	else{
+			strcpy(stack2[top2],op);
+
+	}
+}
+void pop2(char r[20]){//pop strings from stack
+	if(top2==-1)
+		printf("\n underflow");
+	else{
+		strcpy(r,stack2[top2]);
+		top2--;
+	}
+}
+/* Post fix to Infix */
+void postIn(char expr[20]){
+	int i;char pp[2];
+	char r1[20],r2[20];
+	for(i=0;i<strlen(expr);i++){
+		pp[0]=expr[i];
+			pp[1]='\0';
+		if(isalpha(expr[i])){
+			push2(pp);
+		}
+		else{
+			pop2(r1);pop2(r2);
+			strcat(r2,pp);
+			strcat(r2,r1);
+			push2(r2);
+		}
+	}
+	
+}
+void strrev(char rev[20],char expr[20]){//reverse string
+	int i,j;
+	for(i=0,j=strlen(expr)-1;j>=0;i++,j--)
+			rev[i]=expr[j];
+	rev[i]='\0';
+}
+void preIn(char expr[20]){//prefix to infix
+	char rev[20];
+	strrev(rev,expr);
+	postIn(rev);
+	strrev(rev,stack2[top2]);
+	printf("%s",rev);
+	
+}
 int checkOperant(char a){
 //     printf("Char is :%c\n",a);
     if(a!='*' && a!='/' && a!='-' && a!='+' && a!=')' && a!='('){
@@ -175,9 +242,12 @@ int infixToPrefix(){
 }
 int main(){
     int c;
+    char expr[100];
     printf("%s____________MAIN MENU_____________%s\n",RED,RESET);
     printf("%s1) Infix to Postfix convertor%s\n",GRN,RESET);
     printf("%s2) Infix to Prefix convertor%s\n",GRN,RESET);
+    printf("%s3) Postfix to Infix convertor%s\n",GRN,RESET);
+    printf("%s4) Prefix to Infix convertor%s\n",GRN,RESET);
     printf("%s__________________________________%s\n",RED,RESET);
     printf("Choose an option:");
     scanf("%d",&c);
@@ -185,6 +255,21 @@ int main(){
         infixToPostfix();
     else if(c==2)
         infixToPrefix();
+    else if(c==3){
+        printf("\nEnter expression:");
+        scanf("%s",expr);
+        postIn(expr);
+        printf("\nAnswer is: %s\n",stack2[top2]);
+        top2=-1;
+    }
+    else if(c==4){
+        printf("\nEnter expression:");
+        scanf("%s",expr);
+        printf("\nAnswer is: ");
+        preIn(expr);
+        printf("\n");
+        top2=-1;
+    }
     else
         printf("%sInvalid option!\n%s",RED,RESET);
 }
