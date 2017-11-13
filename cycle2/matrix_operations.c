@@ -120,7 +120,7 @@ void matrix_digonalExchange(Matrix *A){
     else
         printf("Not possible to exchange digonals.\n");
 }
-Matrix * matrix_det(Matrix * A){
+Matrix * matrix_det_depricated(Matrix * A){
     int a,b,c,d,e,f,g;  // lol
     Matrix * ans;
     if(A->rows==2 && A->cols==2){
@@ -145,7 +145,7 @@ Matrix * matrix_det(Matrix * A){
         }
     }
 }
- int det(Matrix * A){
+ int matrix_det(Matrix * A){
     int x=A->rows;
      if(x==1)
         return A->a[0][0];
@@ -181,6 +181,6 @@ int main(){
     matrix_digonalExchange(A);
     matrix_print(A);
     printf("\nMatrix Determinant\n");
-    int a=det(A);
+    int a=matrix_det(A);
     printf("Answer is:%d\n",a);
 }
