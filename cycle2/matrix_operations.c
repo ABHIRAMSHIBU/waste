@@ -61,7 +61,7 @@ void printAll(listPointer ** head){
 Matrix * matrix_create(){
     Matrix *A;
     A=malloc(sizeof(Matrix));
-    printf("Enter thr rows, cols:");
+    printf("Enter the rows, cols:");
     scanf("%d %d",&(A->rows),&(A->cols));
     printf("Allocating...\n");
     for(int i=0;i<A->rows;i++){                              //Alocating for every row size of cols
@@ -120,31 +120,7 @@ void matrix_digonalExchange(Matrix *A){
     else
         printf("Not possible to exchange digonals.\n");
 }
-Matrix * matrix_det_depricated(Matrix * A){
-    int a,b,c,d,e,f,g;  // lol
-    Matrix * ans;
-    if(A->rows==2 && A->cols==2){
-        c=A->a[0][0]*A->a[1][1];
-        c-=((A->a[0][1])*(A->a[1][0]));
-        ans=matrix_create_noInp(1,1);
-        ans->a[0][0]=c;
-        return ans;
-    }
-    else{
-        d=0;
-        e=1;
-        for(a=0;a<A->cols;a++){ //Traversing through first row in major
-            ans=matrix_create_noInp((A->rows)-1,(A->cols)-1);
-            for(b=0;b<(A->rows)-1;b++){ //Traversing through rows new matrix
-                for(c=0;c<(A->cols)-1;c++){ //Traversing through cols new matrix 
-                    ans->a[b][c]=A->a[b+1][(a+1)%A->cols];
-                }
-            }
-            d+=e*matrix_det(ans)->a[0][0];
-            e*=-1;
-        }
-    }
-}
+
  int matrix_det(Matrix * A){
     int x=A->rows;
      if(x==1)
@@ -167,20 +143,95 @@ Matrix * matrix_det_depricated(Matrix * A){
                 }
         }
         temp->rows=x-1;
-        detsum+=(k%2==0?1:-1)*A->a[0][k]*det(temp);
+        detsum+=(k%2==0?1:-1)*A->a[0][k]*matrix_det(temp);
     }
     return detsum;
 }
+void swap(Matrix * A, int row1, int row2,int col)
+{
+    for (int i = 0; i < col; i++)
+    {
+        int temp = A->a[row1][i];
+        A->a[row1][i] = A->a[row2][i];
+        A->a[row2][i] = temp;
+    }
+}
+int matrix_rank(Matrix * A)
+{
+    int n=A->rows;
+    int m=A->cols;
+    int rank = n;
+ 
+    for (int row = 0; row < rank; row++)
+    {
+        if (A->a[row][row])
+        {
+           for (int col = 0; col < m; col++)
+           {
+               if (col != row)
+               {
+                 double mult = (double)A->a[col][row] / A->a[row][row];
+                 for (int i = 0; i < rank; i++)
+                   A->a[col][i] -= mult * A->a[row][i];
+              }
+           }
+        }
+        else
+        {
+            int reduce = 1;
+ 
+            for (int i = row + 1; i < m;  i++)
+            {
+                if (A->a[i][row])
+                {
+                    swap(A, row, i, rank);
+                    reduce = 0;
+                    break ;
+                }
+            }
+ 
+            if (reduce)
+            {
+                rank--;
+ 
+                for (int i = 0; i < m; i ++)
+                    A->a[i][row] = A->a[i][rank];
+            }
+ 
+            row--;
+        }
+ 
+    }
+    return rank;
+}
+
 int main(){
     Matrix *A=matrix_create();
     matrix_flush(A);
-    matrix_print(A);
     matrix_input(A);
     matrix_print(A);
-    printf("\n");
-    matrix_digonalExchange(A);
-    matrix_print(A);
-    printf("\nMatrix Determinant\n");
-    int a=matrix_det(A);
-    printf("Answer is:%d\n",a);
+    printf("\n-----------Main Menu-----------\n");
+    printf("1)Exchange Diagonals\n");
+    printf("2)Determinant\n");
+    printf("3)Rank\n");
+    printf("-------------------------------\n");
+    printf("Enter the option:");
+    int c;
+    scanf("%d",&c);
+    if(c==1){
+        matrix_digonalExchange(A);
+        matrix_print(A);
+    }
+    else if(c==2){
+        int a=matrix_det(A);
+        printf("\nMatrix Determinant is: ");
+        printf("%d\n",a);
+    }
+    else if(c==3){
+        printf("Rank of the matrix is: %d\n", matrix_rank(A));
+    }
+    else{
+        main();
+    }
+     printf("\n");
 }
