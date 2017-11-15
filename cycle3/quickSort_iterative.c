@@ -54,10 +54,21 @@ void quickSort(int a[], int l, int h)
         }
     }
 }
+int * getArray(int n){
+    int * a=malloc(sizeof(int)*n);
+    for(int i=0;i<n;i++){
+        printf("Enter element %d:",i+1);
+        scanf("%d",&(a[i]));
+    }
+    return a;
+}
 int main(){
-    int a[100];
-    quickSort(a,0,99);
-    for(int i=0;i<100;i++){
+    printf("Enter the number of elements:");
+    int n;
+    scanf("%d",&n);
+    int *a=getArray(n);
+    quickSort(a,0,n-1);
+    for(int i=0;i<n;i++){
         printf("Index: %d, value: %d\n",i,a[i]);
     }
     return 0;

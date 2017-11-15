@@ -14,11 +14,21 @@ int insertionSort(int a[],int ll,int ul){
         insertionSort(a,ll+1,ul);
     }
 }
-
+int * getArray(int n){
+    int * a=malloc(sizeof(int)*n);
+    for(int i=0;i<n;i++){
+        printf("Enter element %d:",i+1);
+        scanf("%d",&(a[i]));
+    }
+    return a;
+}
 int main(){
-    int a[100];
-    insertionSort(a,0,100);
-    for(int i=0;i<100;i++){
+    printf("Enter the number of elements:");
+    int n;
+    scanf("%d",&n); 
+    int * a=getArray(n);
+    insertionSort(a,0,n);
+    for(int i=0;i<n;i++){
         printf("Index: %d, value: %d\n",i,a[i]);
     }
     return 0;   

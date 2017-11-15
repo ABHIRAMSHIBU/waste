@@ -3,7 +3,7 @@
  */
 #include<stdio.h>
 #include<malloc.h>
-#define VERBOSE 1
+#define VERBOSE 0
 #define VERSION 1.0
 /* Main bubble sort function with swap flag */
 int Sort(int a[],int size){
@@ -71,5 +71,9 @@ int main(){
     scanf("%d",&n);
     int *a=getArray(n);
     Sort(a,n);
+    for(int k=0;k<n;k++){
+        printf("%d\t",a[k]);
+    }
+    printf("\n");
     search(a,n);
 }
