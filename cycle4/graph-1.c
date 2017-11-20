@@ -3,6 +3,7 @@
  */
 #include<stdio.h>
 #include<stdlib.h>
+#include "color.h"
 typedef struct node{
 	int key;
 	int v;
@@ -51,10 +52,9 @@ int dequeue(){
 void set_conn(){
 	int i,j,c;
 	
-	printf("\n Enter 0 for no relation and 1 for relation\n");
+	printf("\nEnter 0 for no relation and 1 for relation\n");
 	for(i=1;i<=n;i++)
 		printf("\t%d",adjl[0][i]->key); //display the vertices at header
-
 	for(i=1;i<=n;i++){
 		printf("\n%d",adjl[i][0]->key);
 		for(j=1;j<=n;j++){
@@ -82,14 +82,14 @@ void insert(int key){//adding vertices to adjacency matrix
 	}
 	else{
 		n--;
-		printf("\n full");
+		printf("\n%sFull!%s",RED,RESET);
 	}
 	
 	
 }
 
-/* DFS Visit function */r
-void dfsvisit(int u){//visiting the elements using dfs
+/* DFS Visit function */
+void dfsvisit(int u){
 	int i;
 	adjl[u][0]->v=1;//mark visited
 	printf("\n %d",adjl[u][0]->key);
@@ -103,22 +103,20 @@ void dfsvisit(int u){//visiting the elements using dfs
 }
 
 
-			
-	
-void dfs(){//dfs calling function 
+/* DFS For REAL! */
+void dfs(){ 
 	int i;
 	for(i=1;i<=n;i++)
-		adjl[i][0]->v=0;//initialize with unvisited parameter
+		adjl[i][0]->v=0;         //Did not visit
 	for(i=1;i<=n;i++)
 	{
 		if(adjl[i][0]->v==0)
 			dfsvisit(i);
 	}
 }
-	
 
-
-void bfs(int s){//breadth first search
+/* BFS */
+void bfs(int s){
 	int i,u;
 	for(i=1;i<=n;i++){
 		if(i!=s)
@@ -142,24 +140,29 @@ void bfs(int s){//breadth first search
 		}
 	}
 }
-int find_sourceid(int key){//to find the index of source (in case of bfs)
+
+/* Find id */
+int find_sourceid(int key){
 	int i;
 	for(i=1;i<=n;i++){
 		if(adjl[i][0]->key==key)
 			return i;
 	}
 }
-	
+
 void main(){
 	int ch,key,no,i,j,s;
 	do{
-		printf("\n 1.insert 2.dfs 3.bfs 4.exit \n Enter your choice:");
+                printf("\n%s-----------------MAIN MENU----------------",RED);
+		printf("\n%s1)Insert \n2)DFS \n3)BFS \n4)exit \n",GRN);
+                printf("%s------------------------------------------\n%s",RED,RESET);
+                printf("Enter an option:");
 		scanf("%d",&ch);
 		if(ch==1){
-			printf("\n Enter no of keys:");
+			printf("\nEnter no of keys:");
 			scanf("%d",&no);
 			for(i=0;i<no;i++){
-				printf("\n Enter key:");
+				printf("\nEnter key:");
 				scanf("%d",&key);
 				insert(key);
 			}
@@ -170,7 +173,7 @@ void main(){
 		else if(ch==2)
 			dfs();
 		else if(ch==3){
-			printf("\n Enter source:");
+			printf("\nEnter source:");
 			scanf("%d",&key);
 			s=find_sourceid(key);
 			bfs(s);
@@ -180,8 +183,3 @@ void main(){
 	}while(ch!=4);
 }
 
-			
-		
-
-	
-	
