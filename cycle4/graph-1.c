@@ -1,6 +1,6 @@
-//created by Abin Shoby
-//BFS AND DFS
-S
+/* No copyright info
+ * Owner Abhiram Shibu
+ */
 #include<stdio.h>
 #include<stdlib.h>
 typedef struct node{
@@ -8,15 +8,16 @@ typedef struct node{
 	int v;
 }node;
 
-node *adjl[100][100];//adjacency matrix
+node *adjl[100][100];
 
-int q[100];//queue
+int q[100];
 
-int head=-1;int tail=-1;//initialize queue
+int head=-1;int tail=-1;
 
-int n=0;//no of vertices
+int n=0;
 
-void enq(int el){//insertion to queue
+/* Enquee */
+void enq(int el){
 	tail++;
 	if(tail==99){
 		printf("\n full");
@@ -31,7 +32,8 @@ void enq(int el){//insertion to queue
 	}
 }
 
-int dequeue(){//removing a key from queue
+/* Dequee */
+int dequeue(){
 	int x;
 	if(head==-1)
 		printf("\n empty");
@@ -44,7 +46,9 @@ int dequeue(){//removing a key from queue
 		return x;
 	}
 }
-void set_conn(){//set relation between the vertices
+
+/* Enforce relation */
+void set_conn(){
 	int i,j,c;
 	
 	printf("\n Enter 0 for no relation and 1 for relation\n");
@@ -65,6 +69,8 @@ void set_conn(){//set relation between the vertices
 		}
 	}
 }
+
+/* Insert into graph */
 void insert(int key){//adding vertices to adjacency matrix
 	node *temp;
 	n++;
@@ -81,6 +87,8 @@ void insert(int key){//adding vertices to adjacency matrix
 	
 	
 }
+
+/* DFS Visit function */r
 void dfsvisit(int u){//visiting the elements using dfs
 	int i;
 	adjl[u][0]->v=1;//mark visited

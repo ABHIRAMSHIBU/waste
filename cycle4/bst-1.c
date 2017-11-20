@@ -1,27 +1,33 @@
-//created by Abin Shoby R3,31006
-//Binary search tree
+/* No copyright info
+ * Owner Abhiram Shibu
+ */
 #include<stdio.h>
 #include<stdlib.h>
-typedef struct node{//definition of node
+#include "color.h"
+/* Type definition of node */
+typedef struct node{
 	int key;
 	struct node *l;
 	struct node *r;
 }node;
 
-node *root;//root node
-void display(node *nd){//display the status
+node *root;
+
+/* Display function */
+void display(node *nd){
 
 	if(nd){
-		printf("\n %d ",nd->key);
+		printf("\n %d \n",nd->key);
 		if(nd->l)
 			display(nd->l);
 		if(nd->r)
 			display(nd->r);
 	}
 	else
-		printf("\n Tree has no element");
+		printf("\n%sWarning:%sTree is NULL%s\n",BLU,RED,RESET);
 }
-	
+
+/* Fuction to search */
 node * search(int x,node *nd,node *parent){//search the parent of inserting element
 	
 	if(nd==NULL){
@@ -35,7 +41,8 @@ node * search(int x,node *nd,node *parent){//search the parent of inserting elem
 		search(x,nd->r,parent);
 	
 }
-	
+
+/* Function to insert an element to a tree */
 void insert(int x){//insert an element
 	node *temp;
 	if(root==NULL){//initial state when tree empty
@@ -56,7 +63,9 @@ void insert(int x){//insert an element
 		}
 	}
 }
-node *find_pos(node *nd,int x){//finds the adress of a key
+
+/* Returns the index of a key */
+node *find_pos(node *nd,int x){
 	if(nd){	
 		if(nd->key==x)
 			return nd;
@@ -69,7 +78,9 @@ node *find_pos(node *nd,int x){//finds the adress of a key
 	else
 		return NULL;
 }
-node * find_ip(node *nd){//find inorder predecessor if present otherwise return the same
+
+/* Returns inorder predecessor */
+node * find_ip(node *nd){
 	node *temp=nd;
 	if(nd->l){
 		temp=nd->l;
@@ -81,7 +92,9 @@ node * find_ip(node *nd){//find inorder predecessor if present otherwise return 
 		temp=nd;
 	return temp;
 }
-node *find_parent(node *start,node *x){//find parent of a child
+
+/* Returns parent of a child */
+node *find_parent(node *start,node *x){
 	node *temp=start;
 	if(x==start)
 		return NULL;
@@ -94,8 +107,8 @@ node *find_parent(node *start,node *x){//find parent of a child
 }
 	
 	
-
-void remove_bst(node *nd){//removes a node
+/* Removes a node */
+void remove_bst(node *nd){
 	int temp;
 	node *par;
 	
@@ -134,46 +147,47 @@ void remove_bst(node *nd){//removes a node
 	
 }
 
-			
-		
+/* Driver Main */
 void main(){
 	int ch,key;
 	node *p,*k;
 	do{
-		printf("\n 1.insert 2.remove 3.search 4.exit");
+                printf("%s------------------MAIN MENU------------------%s",RED,RESET);
+		printf("%s\n1)Insert \n2)Remove \n3)Search \n4)Exit%s\n",GRN,RESET);
+                printf("%s---------------------------------------------%s\n",RED,RESET);
+                printf("Enter an option:");
 		scanf("%d",&ch);
 		if(ch==1){
-			printf("\n Enter the element:");
+			printf("\nEnter an element:");
 			scanf("%d",&key);
 			insert(key);
-			printf("\n current status");
+			printf("\nCurrent Status\n   ");
 			display(root);
 		}
 		else if(ch==2){
-			printf("\n Enter the element to remove:");
+			printf("\nEnter an element to remove:");
 			scanf("%d",&key);
 			p=find_pos(root,key);
 			
 			if(p)
 				remove_bst(p);
 			else
-				printf("\n key not found");
-			printf("\n current status");
+				printf("\nKey not found");
+			printf("\nCurrent Status\n");
 			display(root);
 
 		}
 		else if(ch==3){
-			printf("\n Enter the element to search:");
+			printf("\nEnter an element to search:");
 			scanf("%d",&key);
 			p=find_pos(root,key);
 		
 			if(p)
-				printf("\n key found");
+				printf("%s\nKey found%s\n",GRN,RESET);
 			else
-				printf("\n key not found");
+				printf("%s\nKey not found%s\n",RED,RESET);
 
 		}
 		else;
 	}while(ch!=4);
 }
-			
