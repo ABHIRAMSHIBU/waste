@@ -154,7 +154,7 @@ void main(){
 	int ch,key,no,i,j,s;
 	do{
                 printf("\n%s-----------------MAIN MENU----------------",RED);
-		printf("\n%s1)Insert \n2)DFS \n3)BFS \n4)exit \n",GRN);
+		printf("\n%s1)Insert \n2)DFS \n3)BFS \n4)Exit \n",GRN);
                 printf("%s------------------------------------------\n%s",RED,RESET);
                 printf("Enter an option:");
 		scanf("%d",&ch);
