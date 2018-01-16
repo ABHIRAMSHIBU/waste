@@ -1,0 +1,9 @@
+printf "Apple\nOrange\nBanana\nPapaya\nGrapes" > fruits.txt
+cat fruits.txt > newfile.txt
+cat fruits.txt | sort -r > reverse.txt
+ls | wc -wl
+printf "This is a file.\nOr can be a poem.\nIf its a poem, it will be very great.\nSomeone will enjoy it.\nEnd of the poem" > file && cat file | grep poem
+ls p* > file2
+printf "Name\nAge\nAddress" > newfile && printf "41004\nR4\nTKMCE" > newfile1 && cat newfile newfile1 > details.txt
+cat a.txt b.txt c.txt | grep "th"
+
