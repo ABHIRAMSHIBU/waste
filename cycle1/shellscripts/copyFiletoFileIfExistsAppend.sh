@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright 2018 Abhiram
+# Copyleft 2018 Abhiram
 if [ $# -eq 2 ]
 then
 	cat $1 >> $2

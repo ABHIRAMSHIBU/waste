@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright (c) 2018 Abhiram Shibu
+# Copyleft (c) 2018 Abhiram Shibu
 printf "Enter first number :"
 read a
 printf "Enter second number :"

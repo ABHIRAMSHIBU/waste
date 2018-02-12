@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright 2018 Abhiram
+# Copyleft 2018 Abhiram
 if [ $# -eq 3 ]
 then
 	echo "There are three argumnets!"
