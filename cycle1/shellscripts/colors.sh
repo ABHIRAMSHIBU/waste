@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+# Copyleft 2018 Team Destroyer Foundation
 YELLOW="\e[33m"
 RED="\e[31m"
 GRAY="\e[90m"
