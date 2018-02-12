@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+# Copyleft 2018 Abhiram Shibu
 printf "Enter source file name :"
 read source
 printf "Enter destination file name :"
