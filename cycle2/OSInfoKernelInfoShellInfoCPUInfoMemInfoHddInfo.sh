@@ -10,6 +10,8 @@ echo Release Number: $(uname -r)
 echo Shells: $(cat /etc/shells)
 echo CPU INFO
 echo $(lshw -c cpu)
+echo CACHE INFO
+head -10 /proc/cpuinfo | grep cache
 echo MEM INFO
 echo $(lshw -c memory)
 echo DISK INFO
