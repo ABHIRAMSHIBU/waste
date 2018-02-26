@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Copyleft 2018 Abhiram Shibu
+# Question 1.check that the correct number of arguments was received and print an usage message if not, 2.check whether the classlist file exists and print an error message if not, 3. check whether the username is already in the file, and then either 4. print a message stating that the name already existed, or 5. add the name to the end of the list.
+. colors.sh
+if [ $# -eq 2 ]
+then
+    if [ -f $1 ]
+    then
+        echo -e $GREEN"Existing classlist file found in $PWD"$RESET
+    else
+        echo -e $RED"ERROR: "$RESET"classlist file not found in $PWD"
+        echo -e $GREEN"Creating file!"$RESET
+        touch $1
+    fi
+    grep $2 $1
+    if [ $? -eq 1 ]
+    then
+        echo "Adding entry $2"
+        echo $2 >> $1
+    else
+        echo -e $GREEN"Entry found!!"$RESET
+    fi
+else
+    echo "Syntax for this command is $0 <classlist> <username>"
+fi
+echo -e $RESET
