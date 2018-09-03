@@ -1,0 +1,1 @@
+directory.o: ../directory.cpp

@@ -8,6 +8,7 @@
 /* Header files */
 #include<iostream>
 #include<vector>
+#include<malloc.h>
 
 /* Definitions */
 #define DEBUG true
