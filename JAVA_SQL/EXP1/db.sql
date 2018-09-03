@@ -1,13 +1,14 @@
 -- Table creation
-drop table RenalAgreement3;
-drop table Registration3;
-drop table Member3;
-drop table Role3;
-drop table Actor3;
-drop table Staff3;
-drop table Video3;
-drop table Director3;
-drop table Branch3;
+drop table VideoForRent3 CASCADE CONSTRAINTS;
+drop table RentalAgreement3 CASCADE CONSTRAINTS;
+drop table Registration3 CASCADE CONSTRAINTS;
+drop table Member3 CASCADE CONSTRAINTS;
+drop table Role3 CASCADE CONSTRAINTS;
+drop table Actor3 CASCADE CONSTRAINTS;
+drop table Staff3 CASCADE CONSTRAINTS;
+drop table Video3 CASCADE CONSTRAINTS;
+drop table Director3 CASCADE CONSTRAINTS;
+drop table Branch3 CASCADE CONSTRAINTS;
 
 -- Branch3
 create table Branch3(branchNo varchar2(4) PRIMARY KEY,  
@@ -42,9 +43,9 @@ create table Staff3(staffNo VARCHAR2(5) PRIMARY KEY,
 		foreign key ( branchNo ) references Branch3(branchNo)); 
 
 -- Branch3
-alter table Branch3 add (
-	foreign key ( mgrStaffNo )
-	references Staff3(staffNo));
+-- alter table Branch3 add (
+-- 	foreign key ( mgrStaffNo )
+-- 	references Staff3(staffNo));
 
 -- Actor3
 create table Actor3( actorNo VARCHAR2(5) PRIMARY  KEY, 
@@ -71,11 +72,22 @@ create table Registration3(branchNo varchar2(4), CONSTRAINT B check (branchNo li
 			dateJoined Date not null,
 			primary key (branchNo, memberNo));
 			
--- RenalAgreement3
-create table RenalAgreement3(rentalNo varchar(7) primary key not null constraint R check(rentalNo like 'R%'),
+-- VideoForRent3
+create table VideoForRent3(	
+	VideoNo NUMBER(7,0) PRIMARY KEY NOT NULL,
+	AVAIABLE VARCHAR2(1) DEFAULT 'N',
+	catalogNo varchar2(6),
+	foreign key (catalogNo) references Video3(catalogNo),
+	branchNo varchar2(4) not null constraint beg_with_B check(branchNo like 'B%'),
+	foreign key (branchNo) references Branch3(branchNo)
+);
+			-- RenalAgreement3
+create table RentalAgreement3(rentalNo varchar(7) primary key not null constraint R check(rentalNo like 'R%'),
 	dateOut DATE not null,
-	dateReturn Date not null,
+--	dateReturn Date not null, was the previous declaration.
+    dateReturn Date,
 	memberNo varchar2(7),
 	Foreign key (memberNo) references  MEMBER3(memberNo),
-	videoNo varchar2(6)  not null ,
-	Foreign key  (VideoNo) references Video3(catalogNo)); 
+	videoNo number(6,0)  not null ,
+	Foreign key  (VideoNo) references VideoForRent3(VideoNo)); 
+
