@@ -1,0 +1,10 @@
+drop table VideoForRent3 CASCADE CONSTRAINTS;
+drop table RentalAgreement3 CASCADE CONSTRAINTS;
+drop table Registration3 CASCADE CONSTRAINTS;
+drop table MEMBER3 CASCADE CONSTRAINTS;
+drop table role3 CASCADE CONSTRAINTS;
+drop table actor3 CASCADE CONSTRAINTS;
+drop table staff3 CASCADE CONSTRAINTS;
+drop table video3 CASCADE CONSTRAINTS;
+drop table director3 CASCADE CONSTRAINTS;
+drop table branch3 CASCADE CONSTRAINTS;	
