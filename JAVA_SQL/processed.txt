@@ -1,0 +1,11 @@
+drop table RENALAGREEMENT3 cascade constraint;
+drop table BRANCH3 cascade constraint;
+drop table DIRECTOR3 cascade constraint;
+drop table VIDEO3 cascade constraint;
+drop table STAFF3 cascade constraint;
+drop table ACTOR3 cascade constraint;
+drop table ROLE3 cascade constraint;
+drop table MEMBER3 cascade constraint;
+drop table REGISTRATION3 cascade constraint;
+drop table VIDEOFORRENT3 cascade constraint;
+drop table  cascade constraint;
