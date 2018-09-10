@@ -408,12 +408,88 @@ void processCMD(node  head){
 		}
 	}
 }
+void printFile(node);
+void processCMDSingle(node  head){
+	node current = head;
+	cout<<"Command Line v1.0 - Single Level"<<endl;
+	while(true){
+		cout<<">";
+		string in;
+		getline(cin,in);
+		if(in=="help" || in == "hp"){
+			cout<<"-------------HELP----------------"<<endl;
+			cout<<"hp               Displays Help"<<endl;
+			cout<<"ls <path>        List path"<<endl;
+			cout<<"rm <path>        Removes path"<<endl;
+			cout<<"mv <path> <path> Moves path"<<endl;
+			cout<<"mk <path>        Creates dir/file"<<endl;
+			cout<<"exit             Exits Interpreter"<<endl;
+			cout<<"-----------END HELP--------------"<<endl;
+		}
+		else if(in.substr(0,2)=="mk"){
+			insertFile(current,in.substr(3));
+		}
+		else if(in.substr(0,2)=="mv"){
+			string data=in.substr(3);
+			string from=data.substr(0,data.find(' '));
+			string to=data.substr(data.find(' ')+1);
+			mvFile(&current,from,to);
+		}
+		else if(in.substr(0,2)=="rm"){
+			remFile(&current,in.substr(3));
+		}
+		else if(in=="ls"){
+			printFile(current);
+		}
+		else if(in=="exit"){
+			cout<<"bye..";
+			break;
+		}
+	}
+}
 
 /* Print is still single level
  * moves into a directory
  * extracts the vector
  * treats as root and prints all the data
  */
+void printFile(node masterDir){
+	cout<<"_______________MASTER DIR_______________"<<endl;
+	cout<<"Inode :"<<masterDir.in->size()<<endl;
+	bool file=true;
+	for(int i=0;i<masterDir.in->size();i++){
+		node current=masterDir.in->at(i);
+		cout<<current.name<<" ";
+		if(current.type=='f'){
+			cout<<"type_file ";
+		}
+		else{
+			cout<<"type_dir ";
+		}
+		cout<<"id_"<<current.id<<" ";
+		cout<<endl;
+	}
+	cout<<"_____________END MASTER DIR_____________"<<endl<<endl;
+	if(!file){
+		for(int i=0;i<masterDir.in->size();i++){
+			node current1=masterDir.in->at(i);
+			cout<<"___________"<<current1.name<<" DIR____________"<<endl;
+			for(int j=0;j<current1.in->size();j++){
+					node current=current1.in->at(j);
+					cout<<current.name<<" ";
+					if(current.type=='f'){
+						cout<<"type_file ";
+					}
+					else{
+						cout<<"type_dir ";
+					}
+					cout<<"id_"<<current.id<<" ";
+					cout<<endl;
+			}
+			cout<<"________END "<<current1.name<<" DIR__________"<<endl<<endl;
+		}
+	}
+}
 void print(node masterDir){
 	cout<<"_______________MASTER DIR_______________"<<endl;
 	cout<<"Inode :"<<masterDir.in->size()<<endl;
@@ -455,7 +531,16 @@ void print(node masterDir){
 	}
 }
 int main() {
-	node masterDir=multiLevel();
-	processCMD(masterDir);
-	//print(masterDir);
+	cout<<"Single Level or Two Level?[S/T]:";
+	char choice;
+	cin>>choice;
+	if(choice=='T'||choice=='t'){
+		node masterDir=multiLevel();
+		processCMD(masterDir);
+		//print(masterDir);
+	}
+	else{
+		node masterDir=singleLevel();
+		processCMDSingle(masterDir);
+	}
 }
