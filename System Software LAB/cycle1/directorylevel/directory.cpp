@@ -365,8 +365,13 @@ void processCMD(node  head){
 				node * temp;
 				for(int i=0;i<current.in->size();i++){
 					if(current.in->at(i).name==process){
-						current=current.in->at(i);
-						cout<<"Changing current dir"<<endl;
+						if(current.in->at(i).type=='d'){
+							current=current.in->at(i);
+							cout<<"Changing current dir"<<endl;
+						}
+						else{
+							cout<<"Cant change directory to file"<<endl;
+						}
 						break;
 					}
 				}
@@ -409,7 +414,91 @@ void processCMD(node  head){
 	}
 }
 void printFile(node);
-void processCMDSingle(node  head){
+void processCMDTree(node  head){
+	node current = head;
+	cout<<"Command Line v1.0"<<endl;
+	while(true){
+		cout<<">";
+		string in;
+		getline(cin,in);
+		if(in=="help" || in == "hp"){
+			cout<<"-------------HELP----------------"<<endl;
+			cout<<"hp               Displays Help"<<endl;
+			cout<<"cd <path>        Change path"<<endl;
+			cout<<"ls <path>        List path"<<endl;
+			cout<<"rm <path>        Removes path"<<endl;
+			cout<<"mv <path> <path> Moves path"<<endl;
+			cout<<"mk <path>        Creates dir/file"<<endl;
+			cout<<"md <path>        Creates dir"<<endl;
+			cout<<"mf <path>        Creates file"<<endl;
+			cout<<"exit             Exits Interpreter"<<endl;
+			cout<<"-----------END HELP--------------"<<endl;
+		}
+		else if(in.substr(0,2)=="cd"){
+			string process=in.substr(3);
+			cout<<"Paramenter is:"<<process<<endl;
+			if(process=="root"){
+				current=head;
+			}
+			else if(process=="/"){
+				cout<<"Use of / is depricated, use root instead"<<endl;
+				cout<<"No change"<<endl;
+			}
+			else{
+				node * temp;
+				for(int i=0;i<current.in->size();i++){
+					if(current.in->at(i).name==process){
+						if(current.in->at(i).type=='d'){
+							current=current.in->at(i);
+							cout<<"Changing current dir"<<endl;
+						}
+						else{
+							cout<<"Cant change directory to file"<<endl;
+						}
+						break;
+					}
+				}
+			}
+		}
+		else if(in.substr(0,2)=="mk"){
+			cout<<"mk is depricated"<<endl;
+			cout<<"Use md or mf instead"<<endl;
+		}
+		else if(in.substr(0,2)=="md"){
+			insertDir(current,in.substr(3));
+		}
+		else if(in.substr(0,2)=="mf"){
+			insertFile(current,in.substr(3));
+		}
+		else if(in.substr(0,2)=="mv"){
+			string data=in.substr(3);
+			string from=data.substr(0,data.find(' '));
+			string to=data.substr(data.find(' ')+1);
+			if(current.name=="root"){
+				mvFileMulti(&current,from,to);
+			}
+			else{
+				mvFile(&current,from,to);
+			}
+		}
+		else if(in.substr(0,2)=="rm"){
+			if(current.type=='d'){
+				remDir(&current,in.substr(3));
+			}
+			else{
+				remFile(&current,in.substr(3));
+			}
+		}
+		else if(in=="ls"){
+			printFile(current);
+		}
+		else if(in=="exit"){
+			cout<<"bye..";
+			break;
+		}
+	}
+}
+void processCMDSingle(node head){
 	node current = head;
 	cout<<"Command Line v1.0 - Single Level"<<endl;
 	while(true){
@@ -454,7 +543,7 @@ void processCMDSingle(node  head){
  * treats as root and prints all the data
  */
 void printFile(node masterDir){
-	cout<<"_______________MASTER DIR_______________"<<endl;
+	cout<<"_______________"<<masterDir.name<<" DIR_______________"<<endl;
 	cout<<"Inode :"<<masterDir.in->size()<<endl;
 	bool file=true;
 	for(int i=0;i<masterDir.in->size();i++){
@@ -469,7 +558,7 @@ void printFile(node masterDir){
 		cout<<"id_"<<current.id<<" ";
 		cout<<endl;
 	}
-	cout<<"_____________END MASTER DIR_____________"<<endl<<endl;
+	cout<<"_____________END "<<masterDir.name<<" DIR_____________"<<endl<<endl;
 	if(!file){
 		for(int i=0;i<masterDir.in->size();i++){
 			node current1=masterDir.in->at(i);
@@ -534,13 +623,15 @@ int main() {
 	cout<<"Single Level or Two Level?[S/T]:";
 	char choice;
 	cin>>choice;
-	if(choice=='T'||choice=='t'){
-		node masterDir=multiLevel();
-		processCMD(masterDir);
-		//print(masterDir);
-	}
-	else{
-		node masterDir=singleLevel();
-		processCMDSingle(masterDir);
-	}
+//	if(choice=='T'||choice=='t'){
+//		node masterDir=multiLevel();
+//		processCMD(masterDir);
+//		//print(masterDir);
+//	}
+//	else{
+//		node masterDir=singleLevel();
+//		processCMDSingle(masterDir);
+//	}
+	node masterDir=createDirectory("root");
+	processCMDTree(masterDir);
 }
