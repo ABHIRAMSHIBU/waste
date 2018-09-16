@@ -623,15 +623,17 @@ int main() {
 	cout<<"Single Level or Two Level?[S/T]:";
 	char choice;
 	cin>>choice;
-//	if(choice=='T'||choice=='t'){
-//		node masterDir=multiLevel();
-//		processCMD(masterDir);
-//		//print(masterDir);
-//	}
-//	else{
-//		node masterDir=singleLevel();
-//		processCMDSingle(masterDir);
-//	}
-	node masterDir=createDirectory("root");
-	processCMDTree(masterDir);
+	if(choice=='T'||choice=='t'){
+		node masterDir=multiLevel();
+		processCMD(masterDir);
+		//print(masterDir);
+	}
+	else if(choice=='S'||choice=='s'){
+		node masterDir=singleLevel();
+		processCMDSingle(masterDir);
+	}
+	else{
+		node masterDir=createDirectory("root");
+		processCMDTree(masterDir);
+	}
 }
