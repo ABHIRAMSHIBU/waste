@@ -90,6 +90,7 @@ public:
 	}
 };
 void menu(producer p,consumer c){
+	start:
 	cout<<"Producer consumer problem"<<endl;
 	cout<<"p  produce"<<endl;
 	cout<<"c  consume"<<endl;
@@ -105,6 +106,9 @@ void menu(producer p,consumer c){
 			int n;
 			cin>>n;
 			p.produce(n);
+		}
+		else if(in=='h'||in=='H'){
+			goto start;
 		}
 		else if(in=='c'||in=='C'){
 			cout<<"Enter number of items to consume:";
