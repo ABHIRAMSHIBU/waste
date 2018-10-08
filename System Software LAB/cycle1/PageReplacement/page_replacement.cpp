@@ -177,10 +177,11 @@ void LFU(int cache_size, vector<int> page_string, vector<Memory> cache_states) {
 	cout << "The no of page faults: " << page_faults << endl;
 }
 int main() {
+	start:
 	vector<Memory> cache_states;
 	vector<int> page_string;
 	int cache_size;
-	cout << "Enter the cache size" << endl;
+	cout << "Enter the cache size:";
 	cin >> cache_size;
 	cout << "Enter the pages" << "\n" << "Enter -1 to stop" << endl;
 	int page;
@@ -192,7 +193,7 @@ int main() {
 		}
 		page_string.push_back(page);
 	}
-	cout << "page string is \n";
+	cout << "Page string is - ";
 	for (int i = 0; i < page_string.size() - 1; i++) {
 		cout << page_string[i] << ",";
 	}
@@ -203,7 +204,12 @@ int main() {
 	LRU(cache_size, page_string, cache_states);
 	cout << endl << "LFU" << endl;
 	LFU(cache_size, page_string, cache_states);
-	cout << "Thank you for using this pgm";
+	cout << "Wanna try again?[y/n]:";
+	char c;
+	cin>>c;
+	if(c=='y'||c=='Y'){
+		goto start;
+	}
 	return 0;
 
 }
