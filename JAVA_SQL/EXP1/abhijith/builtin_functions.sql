@@ -8,3 +8,5 @@ from RentalAgreement1;
 select staffNo,to_char(dateJoined,'Month-DD-yyyy') from Registration1 natural join staff1;
 --Question 4
 select (sysdate+15) as fifteen_days_from_now from dual;
+--Question 5
+select sysdate-datereturn as no_of_days_elapsed from rentalagreement1,dual;
