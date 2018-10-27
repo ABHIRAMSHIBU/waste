@@ -13,7 +13,7 @@ BEGIN
 	radius1:=&radius1;
 	radius2:=&radius2;
 	dbms_output.put_line('		radius		circumference   area');
-	for r in r1..r2 loop
+	for r in radius1..radius2 loop
 		area:=3.14*r*r;
 		circumference:=2*3.14*r;
 		dbms_output.put_line('		'||r||'		'||circumference||'		'||area);
