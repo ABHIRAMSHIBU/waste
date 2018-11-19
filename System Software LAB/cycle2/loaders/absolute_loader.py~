@@ -7,8 +7,6 @@ print("Startting address",starting_address)
 pc=starting_address
 m=[]
 for i in lines:
-    if(i==''):
-        continue
     if(i[0]=="T"):
         nextadd=int(i.split("^")[1],16)
         print(pc,nextadd)

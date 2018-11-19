@@ -4,10 +4,13 @@ loading_address=int(loading_address,16)
 fobj=open(OBJ_FILE,"r")
 lines=fobj.read().split("\n")[1:]
 print(lines)
-starting_address=int(lines[0].split("^")[1],16)
+starting_address=int(lines[0].split("^")[3],16)
 pc=starting_address
 m=[]
 for i in lines:
+    print('i=',i)
+    if(i==''):
+        continue
     if(i[0]=="T"):
         nextadd=int(i.split("^")[1],16)
         print(pc,nextadd)
@@ -34,5 +37,5 @@ for i in lines:
         m+=p
 f=open("Memory.txt","w")
 for i in range(len(m)):
-    f.write(hex(starting_address+i)+"\t\t"+m[i]+"\n")
+    f.write(hex(loading_address+i)+"\t\t"+m[i]+"\n")
         
