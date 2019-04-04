@@ -14,9 +14,10 @@ int main(int argc, char const *argv[])
 	int addrlen = sizeof(address); 
 	char buffer[1024] = {0}; 
 	char data[1000];
-    printf("Enter a data to send from server:");
-    scanf("%s",data);
-	
+	char name[100];
+    printf("Enter your name:");
+    gets(name);
+    strcat(name,":");
 	// Creating socket file descriptor 
 	if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) 
 	{ 
@@ -52,10 +53,31 @@ int main(int argc, char const *argv[])
 	{ 
 		perror("accept"); 
 		exit(EXIT_FAILURE); 
-	} 
-    valread = read( new_socket , buffer, 1024); 
-    printf("%s\n",buffer );
-	send(new_socket , data , strlen(data) , 0 ); 
-	printf("Message sent\n"); 
+	}
+	pid_t pid=fork();
+    if(pid==0){
+//         printf("Your name is %s",name);
+        while(1){ 
+            strcpy(buffer,"");
+//             printf("%s\n",buffer );
+//             fflush(stdout);
+            valread = read( new_socket , buffer, 1024);
+            buffer[valread]='\0'; 
+            printf("\r%s\n",buffer );
+            printf("%s:",name);
+        }
+    }
+    else{
+        while(1){
+            strcpy(data,"");
+//             printf("Data :%s",data);
+            printf("%s:",name);
+            gets(data);
+            char buff[1024];
+            strcpy(buff,name);
+            strcat(buff,data);
+            send(new_socket , buff , strlen(buff) , 0 ); 
+        }
+    }
 	return 0; 
 } 

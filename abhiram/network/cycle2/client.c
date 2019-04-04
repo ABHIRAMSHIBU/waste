@@ -13,9 +13,11 @@ int main(int argc, char const *argv[])
     int sock = 0, valread; 
     struct sockaddr_in serv_addr; 
     char data[1000];
-    printf("Enter a data to send from client:");
-    scanf("%s",data);
     char buffer[1024] = {0}; 
+    char name[100];
+    printf("Enter your name:");
+    gets(name);
+    strcat(name,":");
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
     { 
         printf("\n Socket creation error \n"); 
@@ -38,10 +40,36 @@ int main(int argc, char const *argv[])
     { 
         printf("\nConnection Failed \n"); 
         return -1; 
-    } 
-    send(sock , data , strlen(data) , 0 ); 
-    printf("Hello message sent\n"); 
-    valread = read( sock , buffer, 1024); 
-    printf("%s\n",buffer ); 
+    }
+    pid_t pid=fork();
+    if(pid==0){
+//         printf("Your name is %s",name);
+        while(1){
+            strcpy(buffer,"");
+//             printf("%s\n",buffer );
+//             fflush(stdout);
+            valread = read( sock , buffer, 1024); 
+            buffer[valread]='\0';
+            printf("\r%s\n",buffer );
+            printf("\n%s:",name);
+        }
+    }
+    else{
+        while(1){
+            strcpy(data,"");
+//             printf("Data after strcpy:%s\n",data);
+            printf("%s:",name);
+            gets(data);
+            char buff[1024];
+            strcpy(buff,name);
+            strcat(buff,data);
+//             printf("Data after reading from user :%s\n",data);
+            send(sock , buff , strlen(buff) , 0 ); 
+        }
+    }
+//     send(sock , data , strlen(data) , 0 ); 
+//     printf("Hello message sent\n"); 
+//     valread = read( sock , buffer, 1024); 
+//     printf("%s\n",buffer ); 
     return 0; 
 } 
