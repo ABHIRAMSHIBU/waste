@@ -22,7 +22,9 @@ void main(){
     else{
         char *str=(char*)shmat(s,NULL,0);
         printf("(Parent)Child started with pid:%d\n",p);
+	printf("(Parent)Waiting for child %d\n",p);
         wait();
+	printf("(Parent)Child %d completed\n",p);
         printf("(Parent)Data receved from child:%s\n",str);
         shmctl(s,IPC_RMID,NULL);
     }
