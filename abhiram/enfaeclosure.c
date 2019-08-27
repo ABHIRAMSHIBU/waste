@@ -46,6 +46,21 @@ state * traverseState(node ** n){
     }
     return val;
 }
+void eclosure(state * s){
+    stack * curr=s->this;
+    int S=traverseInt(&curr);
+    printf("State %d\n",S);
+    if(s->output[0]!=NULL){
+        curr = s->output[0];
+        while(curr!=NULL){
+            state * s1= traverseState(&curr);
+            if(s1!=s){
+                eclosure(s1);
+            }
+        }
+    }
+    //s.output[0]
+}
 int main(int argc, char ** argv){
     state nfa[STATE_LIMIT];
     int stateCount=0;
@@ -100,9 +115,8 @@ int main(int argc, char ** argv){
             }
         }
     }
-    state dfa[STATE_LIMIT];
-    dfa[0].this=nfa[0].this;
-    for(int i=0;i<STATE_LIMIT;i++){
-        dfa[1].output[i]=nfa[1].output[i];
+    for(int i=0;i<stateCount;i++){
+        printf("Epsilone closure of %d state\n",i);
+        eclosure(&(nfa[i]));
     }
 }

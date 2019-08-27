@@ -145,6 +145,14 @@ char traverseChar(node ** n){
 char * traverseStr(node ** n){
     return (char *) traverse(n);
 }
+int stacklen(node * head){
+    int count=0;
+    while(head!=NULL){
+        head=head->next;
+        count++;
+    }
+    return count;
+}
 // int main(){
 //     node * stack =NULL;
 //     char a[20]="Hello World!";
