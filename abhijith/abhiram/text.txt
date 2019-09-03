@@ -1,0 +1,14 @@
+#include<stdio.h>
+void main(){
+    /* Comment */
+	int a=90,b=3; //Next one
+	int b=10;
+        float z=1.1;
+	c=a+b;
+	c++;
+	a=b /c;
+	if(a<=90){
+		printf("Hello World");
+	}
+	char a = 'c';
+}
