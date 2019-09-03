@@ -42,6 +42,27 @@ node * pushStr(node * head, char *c){
     strcpy(temp,c);
     return push(head,(void *) temp);
 }
+node * pushStack(node * head, node *s){
+    return push(head,(void *) s);
+}
+int traverseInt(node ** n);
+node * checkPushInt(node * head,int c){
+    node * curr=head;
+    _Bool flag = false;
+    while(curr != NULL){
+        int temp = traverseInt(&curr);
+        if(c==temp){
+            flag=true;
+            break;
+        }
+    }
+    if(flag==false){
+        int * temp = malloc(sizeof(int));
+        *temp = c;
+        return push(head,(void *) temp);
+    }
+    return head;
+}
 node * pushInt(node * head,int c){
     int * temp = malloc(sizeof(int));
     *temp = c;
@@ -90,6 +111,12 @@ node * popStr(node * head, char * d){
     head=pop( head,&data);
     strcpy(d,(char *)data);
     free(data);
+    return head;
+}
+node * popStack(node * head, stack ** d){
+    void * data;
+    head=pop(head,&data);
+    *d=(stack *)data;
     return head;
 }
 /* Need to pop into a pointer which needs to be a pointer because of local variable binding.
@@ -144,6 +171,13 @@ char traverseChar(node ** n){
 }
 char * traverseStr(node ** n){
     return (char *) traverse(n);
+}
+stack * traverseStack(node ** n){
+    stack * val = (stack *) traverse(n);
+    if(val==NULL){
+        return NULL;
+    }
+    return val;
 }
 int stacklen(node * head){
     int count=0;
