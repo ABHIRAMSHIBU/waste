@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include "stack.h"
+#include "FAState.h"
 #include<string.h>
 #include<stdlib.h>
 #include<limits.h>
@@ -9,10 +9,6 @@
 #define False 0
 #define STATE_LIMIT 100
 _Bool DEBUG=false;
-typedef struct{
-    stack * this;
-    stack * output[STATE_LIMIT];
-}state;
 // _Bool compareStack(node * head1,node *head2){
 //     int count1=stacklen(head1);
 //     int count2=stacklen(head2);
@@ -30,22 +26,6 @@ typedef struct{
 //     }
 // }
 
-stack * pushState(node * head, state *c){
-    return push(head,(void *) c);
-}
-node * popState(node * head, state ** d){
-    void * data;
-    head=pop(head,&data);
-    *d=(state *)data;
-    return head;
-}
-state * traverseState(node ** n){
-    state * val = (state *) traverse(n);
-    if(val==NULL){
-        return NULL;
-    }
-    return val;
-}
 void eclosure(state * s){
     stack * curr=s->this;
     int S=traverseInt(&curr);
