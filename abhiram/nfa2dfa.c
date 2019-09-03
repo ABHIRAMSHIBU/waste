@@ -68,11 +68,11 @@ stack * nfa2Dfa(int inputCount, state * q0){
             unresolved=checkPushState(unresolved,resolveStates(next->output[i],inputCount));
         }
     }
-    int iter=0;
+//     int iter=0;
     while(True){
         next=NULL;
         if(stacklen(unresolved)==0){
-            printf("Breaked! %d\n",iter);
+//             printf("Breaked! %d\n",iter);
             break;
         }
         unresolved=popState(unresolved,&next);
@@ -98,7 +98,7 @@ stack * nfa2Dfa(int inputCount, state * q0){
                 }
             }
         }
-        iter++;
+//         iter++;
     }
     return dfa;
 }
@@ -165,10 +165,12 @@ int main(int argc, char ** argv){
     printf("%d\n",inputCount);
     printf("Enter number of final states:");
     scanf("%d",&finalCount);
+    printf("%d\n",finalCount);
     for(int i=0;i<finalCount;i++){
         int temp;
         printf("Enter final State %d:",i);
         scanf("%d",&temp);
+        printf("%d\n",temp);
         finalStates=pushInt(finalStates,temp);
     }
     for(int i=0;i<stateCount;i++){
