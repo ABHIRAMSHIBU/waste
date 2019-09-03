@@ -26,7 +26,7 @@ _Bool DEBUG=false;
 //     }
 // }
 
-void eclosure(state * s){
+void eclosure(state * s,state * start){
     stack * curr=s->this;
     int S=traverseInt(&curr);
     printf("State %d\n",S);
@@ -35,7 +35,10 @@ void eclosure(state * s){
         while(curr!=NULL){
             state * s1= traverseState(&curr);
             if(s1!=s){
-                eclosure(s1);
+                if(s1==start){
+                    return;
+                }
+                eclosure(s1,start);
             }
         }
     }
@@ -97,6 +100,6 @@ int main(int argc, char ** argv){
     }
     for(int i=0;i<stateCount;i++){
         printf("Epsilone closure of %d state\n",i);
-        eclosure(&(nfa[i]));
+        eclosure(&(nfa[i]),&(nfa[i]));
     }
 }
