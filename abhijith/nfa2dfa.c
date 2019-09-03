@@ -1,3 +1,6 @@
+/*Author:Abhijith N Raj
+ * Program to Convert  NFA to a DFA
+ */
 #include<stdio.h>
 #include "FAState.h"
 #include<string.h>
@@ -11,35 +14,38 @@ _Bool DEBUG=false;
 _Bool DEAD=false;
 _Bool FINAL=false;
 void printStateName(state * s, int inputCount){
-    printf("State [");
+//     printf("State [");
     stack * temp = s->this;
     while(temp!=NULL){
         int val = traverseInt(&temp);
-        printf("%d",val);
+        printf("q%d ",val);
         if(temp!=NULL){
             printf(", ");
         }
     }
-    printf("]\n");
+//     printf("]\n");
 }
 void printState(state * s, int inputCount){
     printf("\n\n\n");
-    printf("PrintState ");
+//     printf("PrintState ");
     FINAL=false;
+    printf("[");
     printStateName(s,inputCount);
+    printf("]\n");
     for(int i =0;i<inputCount;i++){
-        printf("OUTPUT %d\n",i);
+        printf("INPUT %d\n",i);
         stack * temp = s->output[i];
         if(temp==NULL){
             printf("Dead state\n");
             DEAD=true;
         }
         else{
+            printf("[");
             while(temp!=NULL){
                 state * curr = traverseState(&temp);
                 printStateName(curr,inputCount);
             }
-            printf("\n");
+            printf("]\n");
         }
     }
 }
@@ -151,24 +157,40 @@ stack * nfa2dfa(state * nfa,int count,int inputCount, stack * nfal, stack * dfal
     }
     return dfal;
 }
+
+// void displayFinalStackContents(stack * stateStack, int FinalStateCount){
+//     stack *head = stateStack;
+//     int index =0;
+//     while(1){
+//         state = head->next;
+//         printf("For the index state %d,the states in the final stack are ",state->output[0]);
+//         if(state==NULL){
+//             break;
+//         }   
+//         index++;
+//     }
+// }
+
 int main(int argc, char ** argv){
     state nfa[STATE_LIMIT];
     int stateCount=0;
     int inputCount=0;
     int finalCount=0;
     stack * finalStates=NULL;
-    printf("Enter the no of states:");
+    printf("Enter the state count for the DFA\n");
     scanf("%d",&stateCount);
     printf("%d\n",stateCount);
     printf("Enter the no of alphabets:");
     scanf("%d",&inputCount);
     printf("%d\n",inputCount);
-    printf("Enter no. of final states:");
+    printf("Enter the count for final states\n");
     scanf("%d",&finalCount);
+    printf("%d\n",finalCount);
     for(int i=0;i<finalCount;i++){
         int temp;
-        printf("Enter Final State:",i);
+        printf("Enter Final State %dth one:",i);
         scanf("%d",&temp);
+        printf("%d\n",temp);
         finalStates=pushInt(finalStates,temp);
     }
     for(int i=0;i<stateCount;i++){
@@ -192,13 +214,12 @@ int main(int argc, char ** argv){
             }
         }
     }
-    printf("Input Recieved Successfully\n");
     printf("Transition Function is as shown below\n");
     for(int i=0;i<stateCount;i++){
         //printf("State %d\n",i);
         for(int j=0;j<STATE_LIMIT;j++){
             if(nfa[i].output[j]!=NULL){
-                printf("State %d on input %d goes to following states\n",j);
+                printf("State %d on input %d goes to following states\n",i,j);
                 stack * curr=nfa[i].output[j];
                 state * data=NULL;
                 _Bool flag=False;
@@ -215,25 +236,7 @@ int main(int argc, char ** argv){
             }
         }
     }
-//     state dfa[STATE_LIMIT];
-//     dfa[0].this=nfa[0].this;
-//     for(int i=0;i<STATE_LIMIT;i++){
-//         dfa[0].output[i]=nfa[0].output[i];
-//     }
-// Test 1
-//     stack * dfaInitialState=NULL;
-//     dfaInitialState=pushState(dfaInitialState,&nfa[0]);
-//     nfa2dfa(NULL,0,inputCount, NULL, NULL,dfaInitialState);
-// Test 1 Fail
 
-// Test 2
-    //printState(&nfa[1],inputCount);
-    
-    
-//     stack * testStack=NULL;
-//     testStack=pushState(testStack,&nfa[0]);
-//     state * testState = resolveStates(testStack, inputCount);
-//     printState(testState,inputCount);
 
 
     stack * dfa=nfa2Dfa(inputCount,&nfa[0]);
@@ -242,40 +245,38 @@ int main(int argc, char ** argv){
         state * s1 = traverseState(&curr);
         printState(s1,inputCount);
     }
+    
+    printf("\n\n\nFor the dead state\n");
     if(DEAD==True){
-        printf("\n\n\nPrintState State {dead}\n");
+//         printf("\n\n\nPrintState State {dead}\n");
         for(int i=0;i<inputCount;i++){
-            printf("OUTPUT %d\n",i);
-            printf("State {dead}\n");
+            printf("INPUT %d\n",i);
+            printf("Dead state\n");
         }
     }
     curr=dfa;
-    printf("0th state is always the input state\n");
+    
+    printf("\n\n\n[q0] is the intial state\n");
+    printf("Final State\n");
     while(curr!=NULL){
         state * s1 = traverseState(&curr);
         stack * states = s1->this;
         stack  * curr1 = finalStates;
         _Bool Flag=true;
+        printf("[");
         while(curr1!=NULL && Flag==true){
             int val = traverseInt(&curr1);
             stack * curr2 = states;
             while(curr2!=NULL && Flag==true){
                 int val1 = traverseInt(&curr2);
                 if(val1==val){
-                    printf("Final State\n");
                     printStateName(s1,inputCount);
                     Flag=false;
                 }
             }
         }
+        printf("]\n");
     }
-//     state * s2 = traverseState(&curr);
-//     printState(s2,inputCount);
-    //printf("Compare result %d\n",compareStates(s1,s2));
-//     for(int i=0;i<stateCount;i++){
-//         printState(&nfa[i],inputCount);
-//     }
-//     printf("%d\n",compareStateStackContents(nfa[0].output[1],nfa[1].output[1]));
-//     printf("%d\n",compareStates(&nfa[0],&nfa[0]));
+
     
 }
