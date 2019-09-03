@@ -1,5 +1,6 @@
 #include "stack.h"
 #define STATE_LIMIT 100
+_Bool DEAD=false;
 typedef struct{
     stack * this;
     stack * output[STATE_LIMIT];
@@ -100,36 +101,35 @@ _Bool compareStates(state * s1, state * s2){
     }
     return true;
 }
-// void printStateName(state * s, int inputCount){
-//     printf("State {");
-//     stack * temp = s->this;
-//     while(temp!=NULL){
-//         int val = traverseInt(&temp);
-//         printf("%d",val);
-//         if(temp!=NULL){
-//             printf(", ");
-//         }
-//     }
-//     printf("}\n");
-// }
-// void printState(state * s, int inputCount){
-//     printf("\n\n\n");
-//     printf("PrintState ");
-//     FINAL=false;
-//     printStateName(s,inputCount);
-//     for(int i =0;i<inputCount;i++){
-//         printf("OUTPUT %d\n",i);
-//         stack * temp = s->output[i];
-//         if(temp==NULL){
-//             printf("State {dead}\n");
-//             DEAD=true;
-//         }
-//         else{
-//             while(temp!=NULL){
-//                 state * curr = traverseState(&temp);
-//                 printStateName(curr,inputCount);
-//             }
-//             printf("\n");
-//         }
-//     }
-// }
+void printStateName(state * s, int inputCount){
+    printf("State {");
+    stack * temp = s->this;
+    while(temp!=NULL){
+        int val = traverseInt(&temp);
+        printf("%d",val);
+        if(temp!=NULL){
+            printf(", ");
+        }
+    }
+    printf("}\n");
+}
+void printState(state * s, int inputCount){
+    printf("\n\n\n");
+    printf("PrintState ");
+    printStateName(s,inputCount);
+    for(int i =0;i<inputCount;i++){
+        printf("OUTPUT %d\n",i);
+        stack * temp = s->output[i];
+        if(temp==NULL){
+            printf("State {dead}\n");
+            DEAD=true;
+        }
+        else{
+            while(temp!=NULL){
+                state * curr = traverseState(&temp);
+                printStateName(curr,inputCount);
+            }
+            printf("\n");
+        }
+    }
+}

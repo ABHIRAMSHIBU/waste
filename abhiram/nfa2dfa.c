@@ -8,41 +8,41 @@
 #define True 1
 #define False 0
 _Bool DEBUG=false;
-_Bool DEAD=false;
+extern _Bool DEAD;
 _Bool FINAL=false;
-void printStateName(state * s, int inputCount){
-    printf("State {");
-    stack * temp = s->this;
-    while(temp!=NULL){
-        int val = traverseInt(&temp);
-        printf("%d",val);
-        if(temp!=NULL){
-            printf(", ");
-        }
-    }
-    printf("}\n");
-}
-void printState(state * s, int inputCount){
-    printf("\n\n\n");
-    printf("PrintState ");
-    FINAL=false;
-    printStateName(s,inputCount);
-    for(int i =0;i<inputCount;i++){
-        printf("OUTPUT %d\n",i);
-        stack * temp = s->output[i];
-        if(temp==NULL){
-            printf("State {dead}\n");
-            DEAD=true;
-        }
-        else{
-            while(temp!=NULL){
-                state * curr = traverseState(&temp);
-                printStateName(curr,inputCount);
-            }
-            printf("\n");
-        }
-    }
-}
+// void printStateName(state * s, int inputCount){
+//     printf("State {");
+//     stack * temp = s->this;
+//     while(temp!=NULL){
+//         int val = traverseInt(&temp);
+//         printf("%d",val);
+//         if(temp!=NULL){
+//             printf(", ");
+//         }
+//     }
+//     printf("}\n");
+// }
+// void printState(state * s, int inputCount){
+//     printf("\n\n\n");
+//     printf("PrintState ");
+//     FINAL=false;
+//     printStateName(s,inputCount);
+//     for(int i =0;i<inputCount;i++){
+//         printf("OUTPUT %d\n",i);
+//         stack * temp = s->output[i];
+//         if(temp==NULL){
+//             printf("State {dead}\n");
+//             DEAD=true;
+//         }
+//         else{
+//             while(temp!=NULL){
+//                 state * curr = traverseState(&temp);
+//                 printStateName(curr,inputCount);
+//             }
+//             printf("\n");
+//         }
+//     }
+// }
 state * resolveStates(stack * stateStack, int inputCount);
 stack * nfa2Dfa(int inputCount, state * q0){
     stack * dfa = NULL;
