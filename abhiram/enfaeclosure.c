@@ -9,41 +9,7 @@
 #define False 0
 #define STATE_LIMIT 100
 _Bool DEBUG=false;
-// _Bool compareStack(node * head1,node *head2){
-//     int count1=stacklen(head1);
-//     int count2=stacklen(head2);
-//     if(count1!=count2){
-//         return false;
-//     }
-//     node * curr1=head1;
-//     while(curr1!=NULL){
-//         state data1=traverseState(curr1);
-//         node * curr2=head2;
-//         while(curr2!=NULL){
-//             state data2=transitionState(curr2);
-//             //To be implemented
-//         }
-//     }
-// }
 
-void eclosure(state * s,state * start){
-    stack * curr=s->this;
-    int S=traverseInt(&curr);
-    printf("State %d\n",S);
-    if(s->output[0]!=NULL){
-        curr = s->output[0];
-        while(curr!=NULL){
-            state * s1= traverseState(&curr);
-            if(s1!=s){
-                if(s1==start){
-                    return;
-                }
-                eclosure(s1,start);
-            }
-        }
-    }
-    //s.output[0]
-}
 int main(int argc, char ** argv){
     state nfa[STATE_LIMIT];
     int stateCount=0;
@@ -100,6 +66,12 @@ int main(int argc, char ** argv){
     }
     for(int i=0;i<stateCount;i++){
         printf("Epsilone closure of %d state\n",i);
-        eclosure(&(nfa[i]),&(nfa[i]));
+        stack * output = NULL;
+        eclosure(&(nfa[i]),&(nfa[i]),&output);
+        stack * curr=output;
+        while(curr!=NULL){
+            state * s = traverseState(&curr);
+            printStateName(s,inputCount);
+        }
     }
 }

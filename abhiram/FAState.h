@@ -133,3 +133,22 @@ void printState(state * s, int inputCount){
         }
     }
 }
+
+void eclosure(state * s,state * start, stack ** output){
+    stack * curr=s->this;
+//    int S=traverseInt(&curr);
+    *output=pushState(*output,s);
+//    printf("State %d\n",S);
+    if(s->output[0]!=NULL){
+        curr = s->output[0];
+        while(curr!=NULL){
+            state * s1= traverseState(&curr);
+            if(s1!=s){
+                if(s1==start){
+                    return;
+                }
+                eclosure(s1,start,output);
+            }
+        }
+    }
+}
