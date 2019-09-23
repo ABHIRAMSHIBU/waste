@@ -152,3 +152,18 @@ void eclosure(state * s,state * start, stack ** output){
         }
     }
 }
+stack * stackEclosure(stack * states){
+    stack * new = NULL;
+    stack * curr = states;
+    while(curr != NULL){
+        state * s = traverseState(&curr);
+        stack * output = NULL;
+        eclosure(s,s,&output);
+        stack * curr2 = output;
+        while(curr2 != NULL){
+            state * this = traverseState(&curr2);
+            new = checkPushState(new,this);
+        }
+    }
+    return new;
+}
