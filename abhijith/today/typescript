@@ -1,0 +1,15 @@
+Enter the lhs of the production : E
+Enter the no. of rhs for lhs E : 2
+Enter the 0th rhs of the production for lhs E : E+T
+Enter the 1th rhs of the production for lhs E : T
+Enter -1 to quit: 1
+Enter the lhs of the production : T
+Enter the no. of rhs for lhs: 2
+Enter the 0th rhs of the production for lhs : T*F
+Enter the 1th rhs of the production for lhs: F
+Enter -1 to quit: 1
+Enter the lhs of the production : F
+Enter the no. of rhs for lhs : 2
+Enter the 0th rhs of the production for lhs : (ER)
+Enter the 1th rhs of the production for lhs : id
+Enter -1 to quit: -1
