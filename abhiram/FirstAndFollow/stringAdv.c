@@ -1,5 +1,5 @@
 #define true 1
-#define flase 0
+#define false 0
 #define True 1
 #define False 0
 #include<malloc.h>
@@ -52,4 +52,27 @@ void replaceCharWithStr(char * str1, char *str2, int pos){
 	}
 	buff[z]='\0';
 	strcpy(str1,buff);
+}
+_Bool replaceCharWithStr_CFG(char * str1, char *str2, int pos){
+	char *buff=malloc((strlen(str1)+strlen(str2))*sizeof(char));
+	int z=0;
+	_Bool problem=false;
+	for(int i=0;i<strlen(str1);i++){
+		if(i!=pos){
+			buff[z]=str1[i];
+			z++;
+		}
+		else{
+			for(int j=0;j<strlen(str2);j++){
+				if(str2[j]=='e'){
+					problem=true;
+				}
+				buff[z]=str2[j];
+				z++;
+			}
+		}
+	}
+	buff[z]='\0';
+	strcpy(str1,buff);
+	return problem;
 }
