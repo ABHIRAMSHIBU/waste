@@ -7,7 +7,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-//#include "stringAdv.c"
+#include "stringAdv.c"
 #define true 1
 #define false 0
 typedef struct{
@@ -16,6 +16,20 @@ typedef struct{
 	char left[100];
 	int nonTerminalsCount;
 }FIRST;
+void displayCharArray(char *string){ //Thanks to Abhijith N Raj
+    int length = strlen(string);
+    if(length==0){
+        printf("[ ]");
+        return;
+    }
+    printf("[ ");
+    for(int i=0;i<strlen(string);i++){
+        printf(" %c ,",string[i]);
+    }
+    printf("\b ]");
+    
+}
+
 //Fast Data structure Creation
 /* Structure inspired by Abhijith N Raj */
 typedef struct {
@@ -89,7 +103,20 @@ FIRST first(cfg current){
 				if(charIn(nonTerminals,f[i][j])!=-1){
 					for(int k=0;k<nonTerminalCount;k++){
 						if(z[k]==f[i][j]){
-							replaceCharWithStr(f[i],f[k],j);
+							_Bool problem=replaceCharWithStr_CFG(f[i],f[k],j);
+							if(problem==true){
+								printf("Error exists for %c merge with %c\n",z[i],z[k]);							
+								for(int l=0;l<current.maxProduction;l++){
+									//Find the production with conflict							
+									if(current.left[l]==z[i] && charIn(current.right[l],z[k])!=-1){
+										int pos=charIn(current.right[l],z[k]);
+										char charPos = current.right[l][pos];
+										for( int m=0; m<nonTerminalCount; m++){
+											// Append the first of next thing										
+										}
+									}
+								}
+							}
 							flag=false;
 						}
 					}
@@ -112,10 +139,12 @@ FIRST first(cfg current){
 }
 void printFist(FIRST f){
 	for(int i=0;i<f.nonTerminalsCount;i++){
-		printf("first(%c) = %s\n",f.left[i],f.right[i]);
+		printf("first(%c) = ",f.left[i]);
+		displayCharArray(f.right[i]);
+		printf("\n");
 	}
 }
-void follow(cfg current, FIRST f){
+void follow(cfg current, FIRST F){
 	char processed[100]="";
 	char notProcessed[100]="";
 	for(int i=current.maxProduction-1;i>-1;i--){
@@ -123,13 +152,86 @@ void follow(cfg current, FIRST f){
 			appendChar(notProcessed,current.left[i]);
 		}
 	}
-	printf("Not Processed : %s\n",notProcessed);
+	int nonTerminalCount=strlen(notProcessed);
+	char nonTerminals[100];
+	char *f[nonTerminalCount];
+	char z[nonTerminalCount];
+	strcpy(nonTerminals,notProcessed);
+	//printf("Not Processed : %s\n",notProcessed);
+	_Bool start=true;
+	for(int i=0;i<nonTerminalCount;i++){
+		char now=popChar(notProcessed);
+		z[i]=now;
+		f[i]=malloc(sizeof(char)*100);
+		strcpy(f[i],"");
+		if(start==true){
+			appendChar(f[i],'$');
+			start=false;
+		}
+		for(int j=0;j<current.maxProduction;j++){
+			//printf("Poped %c \n",now);
+			if(charIn(current.right[j],now)!=-1){
+				//printf("YAY FOUND %c %s\n",now,current.right[j]);
+				int nextCharPos=charIn(current.right[j],now)+1;
+				char nextChar = current.right[j][nextCharPos];
+				//printf("DEBUG : %c\n",nextChar);
+				/* Three conditions for nextChar can arrise 
+					1) nextChar is 0 aka \0 then we need to add follow of this production to current follow.
+					2) nextChar is a nonTerminal then need first of that thing.
+					3) nextChar is a terminal, then add to the follow collection
+				*/
+				if(nextChar == 0){
+					//Follow needs to be copied here
+					for(int k=0;k<nonTerminalCount;k++){
+						if(z[k]==current.left[i]){
+							char * right = f[k];
+							int rightlen = strlen(right);
+							for(int l=0; l<rightlen;l++){
+								char temp = right[l];
+								if(charIn(f[i],temp)==-1){
+									appendChar(f[i],temp);					
+								}
+												
+							}		
+						}					
+					}				
+				}
+				else if(charIn(nonTerminals,nextChar)!=-1){ //aka found.. ie its a nonterminal
+					//First needs to be appended
+					for(int k=0;k<F.nonTerminalsCount;k++){
+						if(F.left[k]==nextChar){
+							char * right = F.right[k];
+							int rightlen = strlen(right);
+							for(int l=0; l<rightlen;l++){
+								char temp = right[l];
+								if(charIn(f[i],temp)==-1){
+									appendChar(f[i],temp);					
+								}
+												
+							}		
+						}					
+					}
+				}
+				else{
+					//Im happy.. append the result!
+					if(charIn(f[i],nextChar)==-1){
+						appendChar(f[i],nextChar);					
+					}
+				}
+			}
+		}
+	}
+	for(int i=0;i<nonTerminalCount;i++){
+		printf("follow(%c) = ",z[i]);
+		displayCharArray(f[i]);
+		printf("\n");
+	}
 }
 int main(){
 	cfg test=getInput();
 	printAll(test);
 	FIRST f = first(test);
 	printFist(f);
+	follow(test,f);
 	return 0;
 }
-
