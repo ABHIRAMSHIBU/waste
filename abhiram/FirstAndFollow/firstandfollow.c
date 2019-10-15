@@ -115,6 +115,16 @@ void printFist(FIRST f){
 		printf("first(%c) = %s\n",f.left[i],f.right[i]);
 	}
 }
+void follow(cfg current, FIRST f){
+	char processed[100]="";
+	char notProcessed[100]="";
+	for(int i=current.maxProduction-1;i>-1;i--){
+		if(charIn(notProcessed,current.left[i])==-1){
+			appendChar(notProcessed,current.left[i]);
+		}
+	}
+	printf("Not Processed : %s\n",notProcessed);
+}
 int main(){
 	cfg test=getInput();
 	printAll(test);
