@@ -16,19 +16,22 @@ typedef struct{
 	char left[100];
 	int nonTerminalsCount;
 }FIRST;
-void displayCharArray(char *string){ //Thanks to Abhijith N Raj
+void displayCharArray(char *string){
     int length = strlen(string);
     if(length==0){
         printf("[ ]");
         return;
     }
     printf("[ ");
-    for(int i=0;i<strlen(string);i++){
+    int i;
+    for(i=0;i<strlen(string)-1;i++){
+
         printf(" %c ,",string[i]);
     }
-    printf("\b ]");
+    printf("%c ]",string[i]);
     
 }
+
 
 //Fast Data structure Creation
 /* Structure inspired by Abhijith N Raj */
@@ -95,38 +98,38 @@ FIRST first(cfg current){
 			}
 		}
 	}
-	while(true){
-		_Bool flag=true;
-		for(int i=0;i<nonTerminalCount;i++){
-			int length=strlen(f[i]);
-			for(int j=0;j<length;j++){
-				if(charIn(nonTerminals,f[i][j])!=-1){
-					for(int k=0;k<nonTerminalCount;k++){
-						if(z[k]==f[i][j]){
-							_Bool problem=replaceCharWithStr_CFG(f[i],f[k],j);
-							if(problem==true){
-								printf("Error exists for %c merge with %c\n",z[i],z[k]);							
-								for(int l=0;l<current.maxProduction;l++){
-									//Find the production with conflict							
-									if(current.left[l]==z[i] && charIn(current.right[l],z[k])!=-1){
-										int pos=charIn(current.right[l],z[k]);
-										char charPos = current.right[l][pos];
-										for( int m=0; m<nonTerminalCount; m++){
-											// Append the first of next thing										
-										}
-									}
-								}
-							}
-							flag=false;
-						}
-					}
-				}
-			}
-		}
-		if(flag==false){
-			break;
-		}
-	}
+//	while(true){
+//		_Bool flag=true;
+//		for(int i=0;i<nonTerminalCount;i++){
+//			int length=strlen(f[i]);
+//			for(int j=0;j<length;j++){
+//				if(charIn(nonTerminals,f[i][j])!=-1){
+//					for(int k=0;k<nonTerminalCount;k++){
+//						if(z[k]==f[i][j]){
+//							_Bool problem=replaceCharWithStr_CFG(f[i],f[k],j);
+//							if(problem==true){
+//								printf("Error exists for %c merge with %c\n",z[i],z[k]);
+//								for(int l=0;l<current.maxProduction;l++){
+//									//Find the production with conflict
+//									if(current.left[l]==z[i] && charIn(current.right[l],z[k])!=-1){
+//										int pos=charIn(current.right[l],z[k]);
+//										char charPos = current.right[l][pos];
+//										for( int m=0; m<nonTerminalCount; m++){
+//											// Append the first of next thing
+//										}
+//									}
+//								}
+//							}
+//							flag=false;
+//						}
+//					}
+//				}
+//			}
+//		}
+//		if(flag==false){
+//			break;
+//		}
+//	}
 	FIRST F;
 	F.nonTerminalsCount=nonTerminalCount;
 	strcpy(F.nonTerminals,nonTerminals);

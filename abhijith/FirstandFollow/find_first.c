@@ -165,8 +165,9 @@ void find_first(P * p, char * shmem, int production_count, int index,char *check
 void follow(P * p, int production_count, char ch,char *check_list,char *follow_result,char *first_result[]){
 //      printf("Length of follow_result is %d\n",strlen(follow_result));
 
+    printf("Finding the follow(%c)\n",ch);
     for(int i=0;i<production_count;i++){
-    
+        
         for(int j=0;j<p[i].n_rhs;j++){
             int pos = search_string(p[i].rhs[j],ch); // search the production for the given character
             if(pos!=-1){ // The character was found in the RHS of the production
@@ -175,10 +176,9 @@ void follow(P * p, int production_count, char ch,char *check_list,char *follow_r
                 printf("\n");
                 if(pos==strlen(p[i].rhs[j])-1){ //if the next string is a null string or epsilon
 //                     int first_pos = search_production(p,production_count,p[i].lhs); //find the index of the production of the lhs of the current production
-                    printf("The next char is a null string and hence adding ");
-                    display_char_array(first_result[i]);
-                    printf(" to it \n");
-                    check_concatenate(follow_result,first_result[i]);
+                    printf("The next char is a null string and hence finding follow(%c)\n",p[i].lhs);
+                    follow(p,production_count,p[i].lhs,check_list,follow_result,first_result);
+                    
                 }
                 else{ //if next char is not a null string
                     char curr = p[i].rhs[j][pos+1]; //get the next char to the right of the given char
@@ -188,7 +188,18 @@ void follow(P * p, int production_count, char ch,char *check_list,char *follow_r
                         if(search_string(check_list,curr)==-1){ // if curr is not already seen
                             printf("We have never encountered Non terminal character %c before\n",curr);
                             check_append_string(check_list,curr);
-                            follow(p,production_count,curr,check_list,follow_result,first_result);
+                            int next_char_pos =search_production(p,production_count,curr);
+                            printf("adding first(%c)=",curr);
+                            display_char_array(first_result[next_char_pos]);
+                            printf(" to follow(%c)= ",ch);
+                            display_char_array(follow_result);
+                            printf("\n");
+                            check_concatenate(follow_result,first_result[next_char_pos]);
+                            printf("Now the follow(%c) is ",ch);
+                            display_char_array(follow_result);
+                            printf("\n");
+                            
+                            //follow(p,production_count,curr,check_list,follow_result,first_result);
                         }
                         
                     }
@@ -271,17 +282,22 @@ int main(){
     
     
     char *follow_result[100];
+    for(int i=0;i<production_count;i++)
+	    follow_result[i]=(char *)malloc(100*sizeof(char));
+	strcpy(follow_result[0],"$");
+     
+
+
+    find_first_second_parse(p, production_count, result);
+    remove_epsilon_all_productions(p, production_count, result);
+//    remove_epsilon_all_productions(p, production_count, result);
     for(int i=0;i<production_count;i++){
-        follow_result[i]=(char *)malloc(100*sizeof(char));
 //         strcpy(follow_result[i],"");
         check_list= (char *)malloc(sizeof(char)*100);
         follow(p,production_count, p[i].lhs,check_list,follow_result[i],result);
 
     }
-
-    find_first_second_parse(p, production_count, result);
-    remove_epsilon_all_productions(p, production_count, result);
-//    remove_epsilon_all_productions(p, production_count, result);
+    
     printf("The first values are as shown below\n");
     for(int i=0;i<production_count;i++){
         printf("First(%c) = ",p[i].lhs);
@@ -291,6 +307,7 @@ int main(){
     }
 
     printf("The follow values are as shown below\n");
+   remove_epsilon_all_productions(p, production_count, follow_result);
     for(int i=0;i<production_count;i++){
         printf("Follow(%c) = ",p[i].lhs);
         display_char_array(follow_result[i]);

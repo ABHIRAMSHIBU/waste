@@ -4,16 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../firstandfollow.c \
-../stringAdv.c 
+../firstandfollow.c 
 
 OBJS += \
-./firstandfollow.o \
-./stringAdv.o 
+./firstandfollow.o 
 
 C_DEPS += \
-./firstandfollow.d \
-./stringAdv.d 
+./firstandfollow.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

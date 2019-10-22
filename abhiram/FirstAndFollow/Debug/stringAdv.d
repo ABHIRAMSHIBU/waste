@@ -1,1 +1,0 @@
-stringAdv.o: ../stringAdv.c
