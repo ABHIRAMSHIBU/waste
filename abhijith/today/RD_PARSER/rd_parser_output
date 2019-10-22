@@ -1,0 +1,63 @@
+Enter the lhs of the production : length is 0
+E
+Enter the no. of rhs for lhs E : 2
+Enter the 0th rhs of the production for lhs E : E+T
+Enter the 1th rhs of the production for lhs E : T
+Enter -1 to quit: 1
+Enter the lhs of the production : length is 5
+T
+Enter the no. of rhs for lhs T : 2
+Enter the 0th rhs of the production for lhs T : T*F
+Enter the 1th rhs of the production for lhs T : F
+Enter -1 to quit: 1
+Enter the lhs of the production : length is 10
+F
+Enter the no. of rhs for lhs F : 2
+Enter the 0th rhs of the production for lhs F : i
+Enter the 1th rhs of the production for lhs F : (E)
+Enter -1 to quit: -1
+
+E-> E+T | T |Left recursion is found at indexes : 
+[ 0 ]
+T-> T*F | F |Left recursion is found at indexes : 
+[ 0 ]
+F-> i | (E) |Left recursion is found at indexes : 
+[ ]
+Substring of E+T is +T
+New char recieved is A
+No. of productions when returning is 4
+The cfg after index 0 is 
+E-> TA |
+T-> T*F | F |
+F-> i | (E) |
+A-> +TA | e |
+Substring of T*F is *F
+New char recieved is B
+No. of productions when returning is 5
+The cfg after index 1 is 
+E-> TA |
+T-> FB |
+F-> i | (E) |
+A-> +TA | e |
+B-> *FB | e |
+No. of productions when returning is 5
+The cfg after index 2 is 
+E-> TA |
+T-> FB |
+F-> i | (E) |
+A-> +TA | e |
+B-> *FB | e |
+E-> TA |
+T-> FB |
+F-> i | (E) |
+A-> +TA | e |
+B-> *FB | e |
+Current production is 
+E-> TA |
+current_production.rhs[0][0]=T is Non terminal
+Current production is 
+T-> FB |
+current_production.rhs[0][0]=F is Non terminal
+Current production is 
+F-> i | (E) |
+current_production.rhs[0][0]=i is terminal

@@ -322,7 +322,54 @@ int new_recursive_descend_parser(struct production *p,int production_index,int p
 
 }
 
+int rd_parser(struct production *p,int production_index,int production_count,char *input,int *input_index)
+{
+	struct production current_production = p[production_index];
+	printf("Current production is \n");
+	display_production(current_production);
+	printf("\n");
+	int parsable = 0;
+	for (int i = 0; i < current_production.n_rhs; ++i) {
+		int rhs_index=0;
+		int parsable_flag=-1;
+		for(int j=0;j<strlen(current_production.rhs[i]);j++){
+			int prod_pos = search_production(p, production_count, current_production.rhs[i][j]);
 
+			if(prod_pos==-1){
+				printf("current_production.rhs[%d][%d]=%c is terminal\n",i,j,current_production.rhs[i][j]);
+				if(input[*input_index]==current_production.rhs[i][j]){
+					*input_index+=1;
+					if(*input_index==strlen(input) && j==strlen(current_production.rhs[i])-1){
+							printf("String can be parsed here");
+							parsable=1;
+							break;
+
+					}
+					continue;
+				}
+				else{
+					parsable = -1;
+					break;
+				}
+			}
+			else{
+				printf("current_production.rhs[%d][%d]=%c is Non terminal\n",i,j,current_production.rhs[i][i]);
+				parsable=rd_parser(p, prod_pos, production_count, input, &input_index);
+			}
+
+
+		}
+
+	}
+	if(parsable==-1){
+		printf("String cannot be parsed here\n");
+	}
+	else if (parsable==-1){
+		printf("Strin cannot be parsed here\n");
+	}
+	return parsable;
+
+}
 void main(){
 
 	struct production p[100];
@@ -339,9 +386,9 @@ void main(){
 // 	eliminate_left_recursion(p,0,full_string,&production_count);
 // 	printf("production after eliminating left recursion is\n");
     eliminate_left_recursion_complete(p,full_string,&production_count);
-// 	display_cfg(p,production_count);
+ 	display_cfg(p,production_count);
 int input_index=0;
-    new_recursive_descend_parser(p,0,production_count,"(i+i)*(i+i)",&input_index,0);
+    rd_parser(p,0,production_count,"(i+i)",input_index);
 
 	// printf("Full string is %s\n",full_string);
 

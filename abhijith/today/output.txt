@@ -1,0 +1,114 @@
+Enter the lhs of the production : length is 0
+E
+Enter the no. of rhs for lhs E : 2
+Enter the 0th rhs of the production for lhs E : E+T
+Enter the 1th rhs of the production for lhs E : T
+Enter -1 to quit: 1
+Enter the lhs of the production : length is 5
+T
+Enter the no. of rhs for lhs T : 2
+Enter the 0th rhs of the production for lhs T : T*F
+Enter the 1th rhs of the production for lhs T : F
+Enter -1 to quit: 1
+Enter the lhs of the production : length is 10
+F
+Enter the no. of rhs for lhs F : 2
+Enter the 0th rhs of the production for lhs F : (E)
+Enter the 1th rhs of the production for lhs F : i
+Enter -1 to quit: -1
+
+E-> E+T | T |Left recursion is found at indexes : 
+[ 0 ]
+T-> T*F | F |Left recursion is found at indexes : 
+[ 0 ]
+F-> (E) | i |Left recursion is found at indexes : 
+[ ]
+Substring of E+T is +T
+New char recieved is A
+No. of productions when returning is 4
+The cfg after index 0 is 
+E-> TA |
+T-> T*F | F |
+F-> (E) | i |
+A-> +TA | e |
+Substring of T*F is *F
+New char recieved is B
+No. of productions when returning is 5
+The cfg after index 1 is 
+E-> TA |
+T-> FB |
+F-> (E) | i |
+A-> +TA | e |
+B-> *FB | e |
+No. of productions when returning is 5
+The cfg after index 2 is 
+E-> TA |
+T-> FB |
+F-> (E) | i |
+A-> +TA | e |
+B-> *FB | e |
+Current production under consideration is E-> TA |
+Now considering the 1 no. of rhs of this production 
+Now considering the rhs 0 which is TA
+The first character in the rhs now considering is T
+Now searching whether this character is a non-terminal or terminal
+pos value returned by searching algorithm is 1
+The character T is a Non Terminal
+Expanding on the non terminal
+Current production under consideration is T-> FB |
+Now considering the 1 no. of rhs of this production 
+Now considering the rhs 0 which is FB
+The first character in the rhs now considering is F
+Now searching whether this character is a non-terminal or terminal
+pos value returned by searching algorithm is 2
+The character F is a Non Terminal
+Expanding on the non terminal
+Current production under consideration is F-> (E) | i |
+Now considering the 2 no. of rhs of this production 
+Now considering the rhs 0 which is (E)
+The first character in the rhs now considering is (
+Now searching whether this character is a non-terminal or terminal
+pos value returned by searching algorithm is -1
+The character ( is a Terminal
+Now checking to see whether the first_char matches with input[0]=i
+Now considering the rhs 1 which is i
+The first character in the rhs now considering is i
+Now searching whether this character is a non-terminal or terminal
+pos value returned by searching algorithm is -1
+The character i is a Terminal
+Now checking to see whether the first_char matches with input[0]=i
+Match found
+incrementing input_index to 1The first character in the rhs now considering is B
+Now searching whether this character is a non-terminal or terminal
+pos value returned by searching algorithm is 4
+The character B is a Non Terminal
+Expanding on the non terminal
+Current production under consideration is B-> *FB | e |
+Now considering the 2 no. of rhs of this production 
+Now considering the rhs 0 which is *FB
+The first character in the rhs now considering is *
+Now searching whether this character is a non-terminal or terminal
+pos value returned by searching algorithm is -1
+The character * is a Terminal
+Now checking to see whether the first_char matches with input[1]=+
+Now considering the rhs 1 which is e
+The first character in the rhs now considering is e
+Now searching whether this character is a non-terminal or terminal
+pos value returned by searching algorithm is -1
+The character e is a Terminal
+Now checking to see whether the first_char matches with input[1]=+
+The first character in the rhs now considering is A
+Now searching whether this character is a non-terminal or terminal
+pos value returned by searching algorithm is 3
+The character A is a Non Terminal
+Expanding on the non terminal
+Current production under consideration is A-> +TA | e |
+Now considering the 2 no. of rhs of this production 
+Now considering the rhs 0 which is +TA
+The first character in the rhs now considering is +
+Now searching whether this character is a non-terminal or terminal
+pos value returned by searching algorithm is -1
+The character + is a Terminal
+Now checking to see whether the first_char matches with input[1]=+
+Match found
+incrementing input_index to 2
