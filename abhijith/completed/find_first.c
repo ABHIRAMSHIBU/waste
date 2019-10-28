@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include "advString.c"
 typedef struct production{
 	int n_rhs;
 	char lhs;
@@ -147,6 +146,21 @@ void find_first(P * p, char * shmem, int production_count, int index,char *check
             
         } 
     }
+//     int pos = search_string(shmem,'e');
+//     if(pos!=-1){
+//         for(int i=0;i<p[index].n_rhs];i++){
+//             int pos_rhs = search_string(p[index].rhs[i],'e');
+//             if(pos_rhs!=-1){
+//                 if(pos_rhs!=strlen(p[index].rhs[i])-1){
+//                     char *new_shmm;
+//                     find_first(p,shmem,pos_rhs+1,index,check_list);
+//                     check_concatenate(shmem,new_shmm);
+//                     
+//                 }
+//             }
+//         }
+//         
+//     }
 }
 
 void follow(P * p, int production_count, char ch,char *check_list,char *follow_result,char *first_result[]){
@@ -191,7 +205,44 @@ void follow(P * p, int production_count, char ch,char *check_list,char *follow_r
         }
     }
 }
+ 
+void fix_epsilon(P *p,int production_count,int production_index,char *follow_result[100]){
+    P current_production = p[production_index];
+    for(int i=0;i<production_count;i++){
+        for(int j=0;j<p[i].n_rhs;j++){
+        
+            int pos = search_string(p[i].rhs[j],current_production.lhs);
+            if(pos==-1){
+                continue;
+            }
+            for(int k=0;k<=pos;k++){
+            
+                if(search_string(follow_result[k],'e')!=-1){
+                        if(k+1 > strlen(p[i].rhs[j])-1){
+                            break;
+                        }
+                        int prod_pos = search_production(p,production_count,p[i].rhs[i][k+1]);
+                        if(prod_pos!=-1){
+                            check_concatenate(follow_result[production_index],follow_result[prod_pos]);
+                        }
+                    
+                }
+            }
+        }
+    }
+}
 
+void fix_find_first(P * p, int production_count, char *follow_result[100]){
+
+    for(int i=0;i<production_count;i++){
+        char lhs = p[i].lhs;
+        int eps_pos = search_string(follow_result[i],'e');
+        if(eps_pos!=-1){
+            fix_epsilon(p,production_count,i,follow_result);
+        }
+        
+    }
+}
 
 
 int main(){
@@ -217,6 +268,14 @@ int main(){
         follow(p,production_count, p[i].lhs,check_list,follow_result[i],result);
 
     }
+    printf("The first values are as shown below\n");
+    for(int i=0;i<production_count;i++){
+        printf("First(%c) = ",p[i].lhs);
+        display_char_array(result[i]);
+        printf("\n");
+        
+    }
+    fix_find_first(p,production_count,follow_result);
     printf("The first values are as shown below\n");
     for(int i=0;i<production_count;i++){
         printf("First(%c) = ",p[i].lhs);
