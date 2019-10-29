@@ -134,16 +134,29 @@ _Bool parser(){
 //			input=pushChar(input,inputTemp);
 //		}
 		else if(getPrecidence(t,stackTemp,inputTemp)=='<'){
+			printf("pushing %c\n",inputTemp);
 			mainStack=pushChar(mainStack,stackTemp);
 			mainStack=pushChar(mainStack,inputTemp);
 		}
 		else if(getPrecidence(t,stackTemp,inputTemp)=='>'){
-			while(getPrecidence(t,stackTemp,inputTemp)=='>'){
-				mainStack=popChar(mainStack,&stackTemp);
-			}
-			mainStack=pushChar(mainStack,stackTemp);
+//			while(getPrecidence(t,stackTemp,inputTemp)=='>'){
+//				mainStack=popChar(mainStack,&stackTemp);
+//			}
+//			mainStack=pushChar(mainStack,stackTemp);
 //			mainStack=pushChar(mainStack,inputTemp);
 //			continue;
+			printf("continous popping\n");
+			 while(true){
+				 printf("pushing %c\n",inputTemp);
+				 char stackTop;
+				 mainStack=popChar(mainStack, &stackTop);
+				 if(getPrecidence(t,stackTop,stackTemp)=='<'){
+					 printf("Breaking pop loop\n");
+					 mainStack=pushChar(mainStack,stackTop);
+					 break;
+				 }
+			 }
+
 		}
 		else if(getPrecidence(t,stackTemp,inputTemp)=='='){
 			mainStack=pushChar(mainStack,stackTemp);

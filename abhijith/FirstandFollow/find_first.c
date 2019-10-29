@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+
 //#include "advString.c"
 typedef struct production{
 	int n_rhs;

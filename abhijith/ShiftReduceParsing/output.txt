@@ -1,0 +1,97 @@
+Enter the lhs of the production : length is 0
+E
+Enter the no. of rhs for lhs E : 4
+Enter the 0th rhs of the production for lhs E : E+E
+Enter the 1th rhs of the production for lhs E : E*E
+Enter the 2th rhs of the production for lhs E : (E)
+Enter the 3th rhs of the production for lhs E : i
+Enter -1 to quit: -1
+
+E-> E+E | E*E | (E) | i |
+Enter the input string:i+i
+stack length is 5
+input to substring(0,0) is :[   , p , � ,  ,i ]
+substring is 
+input to substring(0,1) is :[   , p , � ,  ,i ]
+substring is 
+input to substring(0,2) is :[   , p , � ,  ,i ]
+substring is p
+input to substring(0,3) is :[   , p , � ,  ,i ]
+substring is p�
+input to substring(0,4) is :[   , p , � ,  ,i ]
+substring is p�
+input to substring(0,5) is :[   , p , � ,  ,i ]
+substring is p�i
+input to substring(1,1) is :[   , p , � ,  ,i ]
+substring is 
+input to substring(1,2) is :[   , p , � ,  ,i ]
+substring is p
+input to substring(1,3) is :[   , p , � ,  ,i ]
+substring is p�
+input to substring(1,4) is :[   , p , � ,  ,i ]
+substring is p�
+input to substring(1,5) is :[   , p , � ,  ,i ]
+substring is p�i
+input to substring(2,2) is :[   , p , � ,  ,i ]
+substring is 
+input to substring(2,3) is :[   , p , � ,  ,i ]
+substring is �
+input to substring(2,4) is :[   , p , � ,  ,i ]
+substring is �
+input to substring(2,5) is :[   , p , � ,  ,i ]
+substring is �i
+input to substring(3,3) is :[   , p , � ,  ,i ]
+substring is 
+input to substring(3,4) is :[   , p , � ,  ,i ]
+substring is 
+input to substring(3,5) is :[   , p , � ,  ,i ]
+substring is i
+input to substring(4,4) is :[   , p , � ,  ,i ]
+substring is 
+input to substring(4,5) is :[   , p , � ,  ,i ]
+substring is i
+Stack before replacing 
+[   , p , � ,  ,i ]
+Stack after replacing 
+[   , p , � ,  ,E ]
+stack length is 5
+input to substring(0,0) is :[   , p , � ,  ,E ]
+substring is 
+input to substring(0,1) is :[   , p , � ,  ,E ]
+substring is 
+input to substring(0,2) is :[   , p , � ,  ,E ]
+substring is p
+input to substring(0,3) is :[   , p , � ,  ,E ]
+substring is p�
+input to substring(0,4) is :[   , p , � ,  ,E ]
+substring is p�
+input to substring(0,5) is :[   , p , � ,  ,E ]
+substring is p�E
+input to substring(1,1) is :[   , p , � ,  ,E ]
+substring is 
+input to substring(1,2) is :[   , p , � ,  ,E ]
+substring is p
+input to substring(1,3) is :[   , p , � ,  ,E ]
+substring is p�
+input to substring(1,4) is :[   , p , � ,  ,E ]
+substring is p�
+input to substring(1,5) is :[   , p , � ,  ,E ]
+substring is p�E
+input to substring(2,2) is :[   , p , � ,  ,E ]
+substring is 
+input to substring(2,3) is :[   , p , � ,  ,E ]
+substring is �
+input to substring(2,4) is :[   , p , � ,  ,E ]
+substring is �
+input to substring(2,5) is :[   , p , � ,  ,E ]
+substring is �E
+input to substring(3,3) is :[   , p , � ,  ,E ]
+substring is 
+input to substring(3,4) is :[   , p , � ,  ,E ]
+substring is 
+input to substring(3,5) is :[   , p , � ,  ,E ]
+substring is E
+input to substring(4,4) is :[   , p , � ,  ,E ]
+substring is 
+input to substring(4,5) is :[   , p , � ,  ,E ]
+substring is E
