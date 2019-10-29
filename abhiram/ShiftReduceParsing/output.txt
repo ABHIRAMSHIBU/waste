@@ -1,0 +1,37 @@
+Enter the lhs of the production : length is 0
+E
+Enter the no. of rhs for lhs E : 4
+Enter the 0th rhs of the production for lhs E : E+E
+Enter the 1th rhs of the production for lhs E : E*E
+Enter the 2th rhs of the production for lhs E : (E)
+Enter the 3th rhs of the production for lhs E : i
+Enter -1 to quit: -1
+
+E-> E+E | E*E | (E) | i |
+Enter the input string:i+
+stack length is 1
+input to substring(0,0) is :[ i ]
+substring is 
+input to substring(0,1) is :[ i ]
+substring is i
+Stack before replacing 
+[ i ]
+Stack after replacing 
+[ E ]
+stack length is 1
+input to substring(0,0) is :[ E ]
+substring is 
+input to substring(0,1) is :[ E ]
+substring is E
+stack length is 2
+input to substring(0,0) is :[  E ,+ ]
+substring is 
+input to substring(0,1) is :[  E ,+ ]
+substring is E
+input to substring(0,2) is :[  E ,+ ]
+substring is E+
+input to substring(1,1) is :[  E ,+ ]
+substring is 
+input to substring(1,2) is :[  E ,+ ]
+substring is +
+The input string is not accepeted
