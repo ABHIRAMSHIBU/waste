@@ -70,13 +70,18 @@ int parse(struct production *p,int production_count,char *input){
 			}
 		}
 		if(strcmp(old,stack)==0){
+
 			if(strcmp(stack,"E")==0 && input_index==strlen(input)-1){
 				printf("The input string is accepted\n");
 				return 1;
 			}
+			if(input_index==strlen(input)-1 && strcmp(stack,"E")!=0){
+				printf("The input string is not accepeted\n");
+				return 0;
+			}
 			input_index++;
 			append_string(stack,input[input_index]);
-			break;
+
 		}
 	}
 }
