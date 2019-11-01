@@ -1,0 +1,33 @@
+[ a  =  b  +  c  /  d  *  x  /  3   ]
+The value of tCount is 0operator / found at 5
+The value of pos is 5
+Entering reduce value of tCount is 0
+The value of that is c
+The value of tCount on Exit is 1
+[ a  =  b  +  tmp0  *  x  /  3   ]
+operator / found at 7
+The value of pos is 7
+Entering reduce value of tCount is 1
+The value of that is x
+The value of tCount on Exit is 2
+[ a  =  b  +  tmp0  *  tmp1   ]
+operator * found at 5
+The value of pos is 5
+Entering reduce value of tCount is 2
+The value of that is tmp0
+The value of tCount on Exit is 3
+[ a  =  b  +  tmp2   ]
+operator + found at 3
+The value of pos is 3
+Entering reduce value of tCount is 3
+The value of that is b
+The value of tCount on Exit is 4
+[ a  =  tmp3   ]
+
+3AC is for count 5
+tmp0  = c / d
+tmp1  = x / 3
+tmp2  = tmp0 * tmp1
+tmp3  = b + tmp2
+a  = tmp3 
+3AC is for count 5

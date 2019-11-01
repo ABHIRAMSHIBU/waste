@@ -87,9 +87,11 @@ vector chop(char *str){
 	return new;
 }
 void displayVect(vector test){
+	printf("[ ");
 	for(int i=0;i<test.limit;i++){
-		printf("%s\n",test.vect[i]);
+		printf("%s  ",test.vect[i]);
 	}
+	printf(" ]\n");
 }
 char * genTemp(){
 	static int count=0;
@@ -101,36 +103,112 @@ char * genTemp(){
 	count++;
 	return buff;
 }
-void processVector(vector tokens){
+
+void Reduce(vector *tokens,int pos,tac *t,char *op,int *tCount){
+	printf("The value of pos is %d\n",pos);
+	printf("Entering reduce value of tCount is %d\n",*tCount);
+	char *l=malloc(strlen(tokens->vect[pos-1]));
+	strcpy(l,tokens->vect[pos-1]);
+	char *r=malloc(strlen(tokens->vect[pos+1]));
+	printf("The value of that is %s\n",tokens->vect[pos-1]);
+	strcpy(r,tokens->vect[pos+1]);
+	*tokens=vectDel(*tokens, pos-1);
+	*tokens=vectDel(*tokens, pos-1);
+	*tokens=vectDel(*tokens, pos-1);
+	char *new_temp = genTemp();
+	*tokens=vectIns(*tokens, pos-1,new_temp);
+	t[*tCount].lhs = malloc(strlen(new_temp));
+	strcpy(t[*tCount].lhs,new_temp);
+	t[*tCount].op= malloc(strlen(op));
+	t[*tCount].op=op;
+	t[*tCount].rhs1=malloc(strlen(l));
+	t[*tCount].rhs1=l;
+	t[*tCount].rhs2=malloc(strlen(r));
+	t[*tCount].rhs2=r;
+	*tCount=*tCount+1;
+	printf("The value of tCount on Exit is %d\n",*tCount);
+}
+void displayTAC(tac t){
+	printf("%s ",t.lhs);
+	printf(" = ");
+	printf("%s ",t.rhs1);
+	if(strcmp(t.op,"=")!=0){
+		printf("%s ",t.op);
+		printf("%s",t.rhs2);
+
+	}
+
+	printf("\n");
+
+}
+tac *processVector(vector tokens, int *tCount){
 	/* Find equals */
-	char c[2]="=";
-	int pos=-1;
+	printf("The value of tCount is %d",*tCount);
 	tac t[tokens.limit+10];
-	int tCount=0;
-//	for(int i=0;i<tokens.limit;i++){
-//		if(strcmp(c,tokens.vect[i])){
-//			pos=i;
-//			t[tCount].lhs=genTemp();
-//			tCount++;
-//			break;
-//		}
-//	}
 	while(true){
+		if(tokens.limit==3){
+			t[*tCount].lhs=tokens.vect[0];
+			t[*tCount].rhs1=tokens.vect[2];
+			t[*tCount].op="=";
+			*tCount=*tCount+1;
+			break;
+		}
 		int pos=vectSearch(tokens,"/");
 		if(pos!=-1){
-			char *l=tokens.vect[pos-1];
+			printf("operator / found at %d\n",pos);
+			Reduce(&tokens, pos, t,"/", tCount);
+			displayVect(tokens);
+			continue;
 		}
+		pos=vectSearch(tokens,"*");
+		if(pos!=-1){
+			printf("operator * found at %d\n",pos);
+			Reduce(&tokens, pos, t,"*", tCount);
+			displayVect(tokens);
+			continue;
+		}
+
+		pos=vectSearch(tokens,"+");
+		if(pos!=-1){
+			printf("operator + found at %d\n",pos);
+			Reduce(&tokens, pos, t,"+", tCount);
+			displayVect(tokens);
+			continue;
+		}
+
+		pos=vectSearch(tokens,"-");
+		if(pos!=-1){
+			printf("operator * found at %d\n",pos);
+			Reduce(&tokens, pos, t,"-", tCount);
+			displayVect(tokens);
+			continue;
+		}
+
+
 	}
+	printf("\n3AC is for count %d\n",*tCount);
+	for(int i=0;i<*tCount;i++){
+		displayTAC(t[i]);
+	}
+	return t;
 }
+
+
 void test(){
 	printf("%s\n",genTemp());
 }
 int main(){
 //	chopychop(NULL);
-	char buff[10]="a = b + c";
+	char buff[100]="a = b + c / d * x / 3";
 	vector v = chop(buff);
-	v=vectIns(v,1,"z");
 	displayVect(v);
+	int tCount=0;
+	tac *t=processVector(v,&tCount);
+	printf("3AC is for count %d\n",tCount);
+	for(int i=0;i<tCount;i++){
+		displayTAC(t[i]);
+	}
+//	displayVect(v);
 	//test();
 	//test();
 	return 0;
