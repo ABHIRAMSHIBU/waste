@@ -1,0 +1,1 @@
+LeadingAndTrailing.o: ../LeadingAndTrailing.c
