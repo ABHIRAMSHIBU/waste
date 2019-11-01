@@ -72,11 +72,11 @@ int parse(struct production *p,int production_count,char *input){
 		if(strcmp(old,stack)==0){
 
 			if(strcmp(stack,"E")==0 && input_index==strlen(input)-1){
-				printf("Parsing Complete\n");
+				printf("Parsed\n");
 				return 1;
 			}
 			if(input_index==strlen(input)-1 && strcmp(stack,"E")!=0){
-				printf("Parsing Failed\n");
+				printf("Cannot Parse\n");
 				return 0;
 			}
 			input_index++;
