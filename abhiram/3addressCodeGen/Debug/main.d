@@ -1,3 +1,3 @@
-main.o: ../main.c ../stringAdv.c
+main.o: ../main.c ../stack.h
 
-../stringAdv.c:
+../stack.h:

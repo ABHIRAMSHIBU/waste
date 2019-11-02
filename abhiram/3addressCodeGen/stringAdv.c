@@ -4,6 +4,16 @@
 #define False 0
 #include<malloc.h>
 #include<string.h>
+
+char * strnncpy(int l, int u, char * str){
+	char buffer[100]="";
+	int i=l;
+	while(i<u){
+		appendChar(buffer,str[i]);
+	}
+	return str;
+}
+
 void flushBuffer(char * buffer, int bufferLength){
 	for(int i=0;i<bufferLength;i++){
 		buffer[i]='\0';

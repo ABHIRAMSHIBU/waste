@@ -8,7 +8,8 @@
 #define false 0
 #define True true
 #define False false
-#include "stringAdv.c"
+
+#include "stack.h"
 typedef struct {
 	char * vect[100];
 	int limit;
@@ -21,14 +22,7 @@ typedef struct{
 	char * rhs2;
 	_Bool unary;
 }tac;
-char * strnncpy(int l, int u, char * str){
-	char buffer[100]="";
-	int i=l;
-	while(i<u){
-		appendChar(buffer,str[i]);
-	}
-	return str;
-}
+
 //vector chopychop(char * str){
 //	vector new;
 //	new.limit=0;
@@ -61,7 +55,7 @@ vector vectIns(vector v, int index, char * str){
 		strcpy(v.vect[i],v.vect[i-1]);
 	}
 	strcpy(v.vect[index],str);
-	v.limit++;
+	v.limit=v.limit+1;
 	return v;
 }
 vector chop(char *str){
@@ -144,7 +138,11 @@ void displayTAC(tac t){
 tac *processVector(vector tokens, int *tCount){
 	/* Find equals */
 	printf("The value of tCount is %d",*tCount);
-	tac t[tokens.limit+10];
+	printf("The vector to be processed is  ");
+	displayVect(tokens);
+	printf("\n");
+	tac *t;
+	t=malloc((tokens.limit+10)*sizeof(tac));
 	while(true){
 		if(tokens.limit==3){
 			t[*tCount].lhs=tokens.vect[0];
@@ -188,7 +186,7 @@ tac *processVector(vector tokens, int *tCount){
 	}
 	printf("\n3AC is for count %d\n",*tCount);
 	for(int i=0;i<*tCount;i++){
-		displayTAC(t[i]);
+		displayTAC(*(t+i));
 	}
 	return t;
 }
@@ -197,17 +195,72 @@ tac *processVector(vector tokens, int *tCount){
 void test(){
 	printf("%s\n",genTemp());
 }
+void eliminateBrackets(vector tokens,int *tCount){
+	stack *s=NULL;
+	vector v[20];
+	tac *t[100];
+//	t=malloc(100*sizeof(tac));
+	int vCount=0;
+	int hereTCount=0;
+	int count[100];
+	for(int i=0;i<tokens.limit;i++){
+		if(strcmp(")",tokens.vect[i])==0){
+			printf("Found ) at pos %d \n",i);
+			int k=0;
+			v[vCount].limit=0;
+			while(true){
+				char new_str[20];
+				s=popStr(s,new_str);
+				if(strcmp(new_str,"(")==0){
+//					printf("a chopped vector is \n");
+//					displayVect(v[vCount]);
+//					printf("\n");
+					char *temp = genTemp();
+					v[vCount]=vectIns(v[vCount],0,"=");
+					v[vCount]=vectIns(v[vCount],0,temp);
+					displayVect(v[vCount]);
+					int new_tCount=0;
+					t[hereTCount]= processVector(v[vCount],&new_tCount);
+					count[hereTCount]=new_tCount;
+					hereTCount++;
+//					printf("new_tCount %d \n",new_tCount);
+					*tCount=*tCount+new_tCount;
+//					printf("tCount now is %d\n",*tCount);
+					pushStr(s,temp);
+					vCount++;
+					break;
+				}
+				v[vCount]=vectIns(v[vCount],k,new_str);
+				k++;
+			}
+
+		}
+		else{
+			s=pushStr(s,tokens.vect[i]);
+		}
+
+	}
+	for(int i=0;i<hereTCount;i++){
+		for(int j=0;j<count[i];j++){
+//			printf("%p %d %d\n",t+i,i,hereTCount);
+			displayTAC(*(t[i]+j));
+		}
+	}
+
+}
 int main(){
 //	chopychop(NULL);
-	char buff[100]="a = b + c / d * x / 3";
+//	char buff[100]="t1 = ( ( b + c + e ) * d )";
+	char buff[100]= "( ( c + d ) * e / f + ( h - e )  ";
 	vector v = chop(buff);
 	displayVect(v);
 	int tCount=0;
-	tac *t=processVector(v,&tCount);
-	printf("3AC is for count %d\n",tCount);
-	for(int i=0;i<tCount;i++){
-		displayTAC(t[i]);
-	}
+	eliminateBrackets(v,&tCount);
+//	tac *t=processVector(v,&tCount);
+//	printf("3AC is for count %d\n",tCount);
+//	for(int i=0;i<tCount;i++){
+//		displayTAC(*(t+i));
+//	}
 //	displayVect(v);
 	//test();
 	//test();
