@@ -7,6 +7,8 @@ C_SRCS += \
 ../RDparser.c \
 ../enfaeclosure.c \
 ../enfatonfa.c \
+../first_follow.c \
+../firstandfollow.c \
 ../lexicalAnalyzer.c \
 ../lexicalAnalyzer_bkp.c \
 ../nfa2dfa.c \
@@ -16,6 +18,8 @@ OBJS += \
 ./RDparser.o \
 ./enfaeclosure.o \
 ./enfatonfa.o \
+./first_follow.o \
+./firstandfollow.o \
 ./lexicalAnalyzer.o \
 ./lexicalAnalyzer_bkp.o \
 ./nfa2dfa.o \
@@ -25,6 +29,8 @@ C_DEPS += \
 ./RDparser.d \
 ./enfaeclosure.d \
 ./enfatonfa.d \
+./first_follow.d \
+./firstandfollow.d \
 ./lexicalAnalyzer.d \
 ./lexicalAnalyzer_bkp.d \
 ./nfa2dfa.d \

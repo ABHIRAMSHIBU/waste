@@ -90,7 +90,7 @@ void displayVect(vector test){
 char * genTemp(){
 	static int count=0;
 	char * buff = malloc(10);
-	strcpy(buff,"tmp");
+	strcpy(buff,"t");
 	char buff2[10];
 	sprintf(buff2, "%d", count);
 	strcat(buff,buff2);
@@ -99,12 +99,12 @@ char * genTemp(){
 }
 
 void Reduce(vector *tokens,int pos,tac *t,char *op,int *tCount){
-	printf("The value of pos is %d\n",pos);
-	printf("Entering reduce value of tCount is %d\n",*tCount);
+//	printf("The value of pos is %d\n",pos);
+//	printf("Entering reduce value of tCount is %d\n",*tCount);
 	char *l=malloc(strlen(tokens->vect[pos-1]));
 	strcpy(l,tokens->vect[pos-1]);
 	char *r=malloc(strlen(tokens->vect[pos+1]));
-	printf("The value of that is %s\n",tokens->vect[pos-1]);
+//	printf("The value of that is %s\n",tokens->vect[pos-1]);
 	strcpy(r,tokens->vect[pos+1]);
 	*tokens=vectDel(*tokens, pos-1);
 	*tokens=vectDel(*tokens, pos-1);
@@ -120,26 +120,25 @@ void Reduce(vector *tokens,int pos,tac *t,char *op,int *tCount){
 	t[*tCount].rhs2=malloc(strlen(r));
 	t[*tCount].rhs2=r;
 	*tCount=*tCount+1;
-	printf("The value of tCount on Exit is %d\n",*tCount);
+//	printf("The value of tCount on Exit is %d\n",*tCount);
 }
 void displayTAC(tac t){
 	printf("%s ",t.lhs);
 	printf(" = ");
-	printf("%s ",t.rhs1);
 	if(strcmp(t.op,"=")!=0){
+		printf("%s ",t.rhs2);
 		printf("%s ",t.op);
-		printf("%s",t.rhs2);
-
 	}
+	printf("%s ",t.rhs1);
 
 	printf("\n");
 
 }
 tac *processVector(vector tokens, int *tCount){
 	/* Find equals */
-	printf("The value of tCount is %d",*tCount);
-	printf("The vector to be processed is  ");
-	displayVect(tokens);
+//	printf("The value of tCount is %d",*tCount);
+//	printf("The vector to be processed is  ");
+//	displayVect(tokens);
 	printf("\n");
 	tac *t;
 	t=malloc((tokens.limit+10)*sizeof(tac));
@@ -153,40 +152,40 @@ tac *processVector(vector tokens, int *tCount){
 		}
 		int pos=vectSearch(tokens,"/");
 		if(pos!=-1){
-			printf("operator / found at %d\n",pos);
+//			printf("operator / found at %d\n",pos);
 			Reduce(&tokens, pos, t,"/", tCount);
-			displayVect(tokens);
+//			displayVect(tokens);
 			continue;
 		}
 		pos=vectSearch(tokens,"*");
 		if(pos!=-1){
-			printf("operator * found at %d\n",pos);
+//			printf("operator * found at %d\n",pos);
 			Reduce(&tokens, pos, t,"*", tCount);
-			displayVect(tokens);
+//			displayVect(tokens);
 			continue;
 		}
 
 		pos=vectSearch(tokens,"+");
 		if(pos!=-1){
-			printf("operator + found at %d\n",pos);
+//			printf("operator + found at %d\n",pos);
 			Reduce(&tokens, pos, t,"+", tCount);
-			displayVect(tokens);
+//			displayVect(tokens);
 			continue;
 		}
 
 		pos=vectSearch(tokens,"-");
 		if(pos!=-1){
-			printf("operator * found at %d\n",pos);
+//			printf("operator * found at %d\n",pos);
 			Reduce(&tokens, pos, t,"-", tCount);
-			displayVect(tokens);
+//			displayVect(tokens);
 			continue;
 		}
 
 
 	}
-	printf("\n3AC is for count %d\n",*tCount);
+//	printf("\n3AC is for count %d\n",*tCount);
 	for(int i=0;i<*tCount;i++){
-		displayTAC(*(t+i));
+//		displayTAC(*(t+i));
 	}
 	return t;
 }
@@ -205,7 +204,7 @@ void eliminateBrackets(vector tokens,int *tCount){
 	int count[100];
 	for(int i=0;i<tokens.limit;i++){
 		if(strcmp(")",tokens.vect[i])==0){
-			printf("Found ) at pos %d \n",i);
+//			printf("Found ) at pos %d \n",i);
 			int k=0;
 			v[vCount].limit=0;
 			while(true){
@@ -218,7 +217,7 @@ void eliminateBrackets(vector tokens,int *tCount){
 					char *temp = genTemp();
 					v[vCount]=vectIns(v[vCount],0,"=");
 					v[vCount]=vectIns(v[vCount],0,temp);
-					displayVect(v[vCount]);
+//					displayVect(v[vCount]);
 					int new_tCount=0;
 					t[hereTCount]= processVector(v[vCount],&new_tCount);
 					count[hereTCount]=new_tCount;
@@ -251,9 +250,20 @@ void eliminateBrackets(vector tokens,int *tCount){
 int main(){
 //	chopychop(NULL);
 //	char buff[100]="t1 = ( ( b + c + e ) * d )";
-	char buff[100]= "( ( c + d ) * e / f + ( h - e )  ";
+	char temp[100];
+	extern FILE * stdin;
+	printf("Enter Input :");
+	fgets(temp,100,stdin);
+	int length=strlen(temp);
+	temp[length-1]=0;
+	char buff[100]="( ";
+	strcat(buff,temp);
+	char buff2[3]=" )";
+	strcat(buff,buff2);
+	printf("Input is %s\n",buff);
+	//char buff[100]= "( ( c + d ) * e / f + ( h + e )  ";
 	vector v = chop(buff);
-	displayVect(v);
+//	displayVect(v);
 	int tCount=0;
 	eliminateBrackets(v,&tCount);
 //	tac *t=processVector(v,&tCount);
