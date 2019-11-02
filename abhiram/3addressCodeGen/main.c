@@ -125,12 +125,12 @@ void Reduce(vector *tokens,int pos,tac *t,char *op,int *tCount){
 void displayTAC(tac t){
 	printf("%s ",t.lhs);
 	printf(" = ");
-	printf("%s ",t.rhs1);
 	if(strcmp(t.op,"=")!=0){
-		printf("%s ",t.op);
 		printf("%s",t.rhs2);
+		printf("%s ",t.op);
 
 	}
+	printf("%s ",t.rhs1);
 
 	printf("\n");
 
@@ -251,7 +251,7 @@ void eliminateBrackets(vector tokens,int *tCount){
 int main(){
 //	chopychop(NULL);
 //	char buff[100]="t1 = ( ( b + c + e ) * d )";
-	char buff[100]= "( ( c + d ) * e / f + ( h - e )  ";
+	char buff[100]= "( ( c + d ) * e / f + ( h - e ) ) ";
 	vector v = chop(buff);
 	displayVect(v);
 	int tCount=0;
