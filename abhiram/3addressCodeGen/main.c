@@ -126,7 +126,7 @@ void displayTAC(tac t){
 	printf("%s ",t.lhs);
 	printf(" = ");
 	if(strcmp(t.op,"=")!=0){
-		printf("%s ",t.rhs2);
+		printf("%s",t.rhs2);
 		printf("%s ",t.op);
 	}
 	printf("%s ",t.rhs1);
