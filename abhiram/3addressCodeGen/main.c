@@ -34,6 +34,9 @@ typedef struct{
 //	}
 //	//printf("%s\n",a);
 //}
+void constructVector(){
+
+}
 int vectSearch(vector v,char * str){
 	for(int i=0;i<v.limit;i++){
 		if(strcmp(v.vect[i],str)==0){

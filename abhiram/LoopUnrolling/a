@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+z= [i.strip() for i in open("/tmp/input.txt").read().split("\n") if i not in ["\n","}"]]
+loop = z[0]
+l=loop.split(";")
+variable = l[0].split("=")[0].split()[1]
+print("Iterator is ",variable)
+
+n_times=int(l[1].split("<")[1])
+print("Iteration times ",n_times)
+
+l=[]
+z=z[1:]
+for i in range(n_times):
+        for j in range(len(z)):
+                out = z[j].replace(variable,str(i))
+                if(out):
+                        l.append(out)
+z=""
+for i in l:
+        z+=i+"\n"
+print(z)
+
